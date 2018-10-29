@@ -1,0 +1,23 @@
+Spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: jerry8199
+    url: jdbc:mysql://localhost:3306/gamesmarket?useUnicode=true&characterEncoding=utf8
+  jpa:
+    show-sql: true
+  jackson:
+    default-property-inclusion: non_null
+server:
+  servlet:
+    context-path: /gamemarket
+  port: 8686
+  #eureka的主机名
+  eureka:
+    instance:
+      hostname: localhost
+    client:
+      registerWithEureka: false
+      fetchRegistry: false
+      serviceUrl:
+        defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
