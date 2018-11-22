@@ -1,0 +1,144 @@
+/*
+CREATE TABLE `canteen_category` (
+   `category_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+   `category_name` varchar(64) NOT NULL COMMENT '类目名称',
+   `category_type` int(11) NOT NULL COMMENT '类目编号',
+   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+   PRIMARY KEY (`category_id`),
+   UNIQUE KEY `uqe_category_type` (`category_type`)
+ ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='产品类目表'
+
+
+
+CREATE TABLE `canteen_info` (
+   `Canteen_id` varchar(32) NOT NULL COMMENT '餐厅id',
+   `Canteen_name` varchar(64) NOT NULL COMMENT '餐厅名称',
+   `Canteen_address` varchar(50) NOT NULL COMMENT '餐厅地址',
+   `Canteen_hall_stock` int(11) NOT NULL COMMENT '大厅空位数量',
+   `Canteen_room_stock` int(11) NOT NULL COMMENT '包间剩余数量',
+   `Canteen_description` varchar(64) NOT NULL COMMENT '餐厅描述',
+   `Canteen_icon` varchar(512) NOT NULL COMMENT '餐厅图标',
+   `room_icon` varchar(512) NOT NULL COMMENT '包间图片',
+   `hall_icon` varchar(512) NOT NULL COMMENT '大厅图片',
+   `category_type` int(11) NOT NULL COMMENT '餐厅类型',
+   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+   `Canteen_status` int(11) NOT NULL COMMENT '餐厅状态',
+   `latitude` double DEFAULT NULL COMMENT '纬度',
+   `longitude` double DEFAULT NULL COMMENT '经度',
+   `canteen_phone` varchar(50) DEFAULT NULL COMMENT '手机号',
+   `supports` int(11) DEFAULT NULL COMMENT '支持',
+   `ratings` int(11) DEFAULT NULL COMMENT '评价',
+   `activity` int(11) DEFAULT NULL COMMENT '活动',
+   `opening_hours` varchar(30) DEFAULT NULL COMMENT '营业时间',
+   `license` int(11) DEFAULT NULL COMMENT '营业许可',
+   `piecewise_agent_fee` decimal(8,2) DEFAULT NULL COMMENT '配送费',
+   `person_consume` decimal(8,2) DEFAULT NULL COMMENT '人均消费',
+   `star` double DEFAULT NULL COMMENT '星级',
+   `hot_count` int(11) DEFAULT NULL COMMENT '热度',
+   PRIMARY KEY (`Canteen_id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='餐厅信息表'
+
+
+
+
+CREATE TABLE `coupon_category` (
+   `category_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+   `category_name` varchar(64) NOT NULL COMMENT '类目名称',
+   `category_type` int(11) NOT NULL COMMENT '类目编号',
+   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+   PRIMARY KEY (`category_id`),
+   UNIQUE KEY `uqe_category_type` (`category_type`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='优惠券类目表'
+
+
+
+
+
+
+create table
+CREATE TABLE `coupon_info` (
+   `coupon_id` varchar(32) NOT NULL COMMENT '优惠券id',
+   `coupon_name` varchar(64) NOT NULL COMMENT '优惠券名称',
+   `product_id` varchar(32) NOT NULL COMMENT '优惠券产品id',
+   `coupon_stock` int(11) NOT NULL COMMENT '优惠券数量库存',
+   `coupon_description` varchar(64) NOT NULL COMMENT '优惠券描述',
+   `coupon_icon` varchar(512) NOT NULL COMMENT '优惠券图标',
+   `redpack` decimal(8,2) DEFAULT '0.00' COMMENT '通用红包',
+   `reduction_money` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '满减额度',
+   `coupon_category` int(11) NOT NULL COMMENT '优惠券类目',
+   `coupon_discount` decimal(8,2) DEFAULT '1.00' COMMENT '优惠券折扣',
+   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+   `deadline` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '优惠券截止时间',
+   `coupon_status` int(11) NOT NULL COMMENT '优惠券状态',
+   `canteen_id` varchar(32) DEFAULT NULL COMMENT '餐厅id',
+   `require_money` decimal(8,2) NOT NULL DEFAULT '100000.00' COMMENT '满减的额度要求',
+   PRIMARY KEY (`coupon_id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='优惠券信息表'
+
+REATE TABLE `order_detail` (
+   `detail_id` varchar(32) NOT NULL,
+   `order_id` varchar(32) NOT NULL,
+   `product_id` varchar(32) NOT NULL,
+   `product_name` varchar(64) NOT NULL,
+   `product_price` decimal(8,2) NOT NULL,
+   `product_quantity` int(11) NOT NULL,
+   `product_icon` varchar(512) DEFAULT NULL,
+   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+   `room_quantity` int(11) DEFAULT NULL,
+   PRIMARY KEY (`detail_id`),
+   KEY `idx_order_id` (`order_id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单详情表'
+
+
+create table
+CREATE TABLE `order_master` (
+   `order_id` varchar(32) NOT NULL,
+   `buyer_name` varchar(32) NOT NULL COMMENT '买家名字',
+   `buyer_phone` varchar(32) NOT NULL COMMENT '买家联系方式',
+   `buyer_address` varchar(128) NOT NULL COMMENT '买家地址',
+   `buyer_openid` varchar(64) NOT NULL COMMENT '买家微信openid',
+   `order_amount` decimal(8,2) NOT NULL COMMENT '订单总金额',
+   `order_status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '订单状态,默认新订单',
+   `pay_status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '订单状态，默认未支付',
+   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+   `coupon_amount` decimal(8,2) DEFAULT NULL COMMENT '优惠券优惠的金钱额度',
+   `canteen_id` varchar(32) DEFAULT NULL COMMENT '餐厅id',
+   `people_num` int(11) DEFAULT NULL COMMENT '预约要来的人数',
+   `appointment_time` timestamp NULL DEFAULT NULL COMMENT '预约到店时间',
+   `comment` varchar(512) DEFAULT NULL COMMENT '订单备注',
+   PRIMARY KEY (`order_id`),
+   KEY `idx_buyer_openid` (`buyer_openid`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品订单表'
+
+
+create table
+CREATE TABLE `product_category` (
+   `category_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+   `category_name` varchar(64) NOT NULL COMMENT '类目名称',
+   `category_type` int(11) NOT NULL COMMENT '类目编号',
+   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+   PRIMARY KEY (`category_id`),
+   UNIQUE KEY `uqe_category_type` (`category_type`)
+ ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='产品类目表'
+CREATE TABLE `product_info` (
+   `product_id` varchar(32) NOT NULL COMMENT '产品id',
+   `product_name` varchar(64) NOT NULL COMMENT '名称',
+   `product_price` decimal(8,2) NOT NULL COMMENT '单价',
+   `product_stock` int(11) NOT NULL COMMENT '数量库存',
+   `product_description` varchar(64) NOT NULL COMMENT '产品描述',
+   `product_icon` varchar(512) NOT NULL COMMENT '图标',
+   `category_type` int(11) NOT NULL COMMENT '类目',
+   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+   `product_status` int(11) NOT NULL COMMENT '货品状态',
+   `canteen_id` varchar(32) NOT NULL COMMENT '餐厅id',
+   PRIMARY KEY (`product_id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='游戏产品表'
+*/
