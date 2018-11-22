@@ -12,8 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import lombok.extern.slf4j.Slf4j;
 import java.util.List;
+@Slf4j
 @Service
 public class ProductServiceImpl implements ProductService{
     @Autowired
@@ -45,6 +46,7 @@ public class ProductServiceImpl implements ProductService{
         for (CartDTO cartDTO : cartDTOList) {
             ProductInfo productInfo = productDao.getOne(cartDTO.getProductId());
             if (productInfo == null) {
+                log.error("【商品】无商品详情，productInfo == {}",productInfo );
                 throw new GameException(ResultEnum.PRODUCT_NOT_EXIST);
             }
             Integer result = productInfo.getProductStock() + cartDTO.getProductQuantity();
@@ -58,14 +60,45 @@ public class ProductServiceImpl implements ProductService{
      for(CartDTO cartDTO : cartDTOList){
          ProductInfo productInfo = productDao.getOne(cartDTO.getProductId());
          if(productInfo==null){
+             log.error("【商品】无商品详情，productInfo == {}",productInfo );
              throw  new GameException(ResultEnum.PRODUCT_NOT_EXIST);
          }
          Integer result = productInfo.getProductStock()-cartDTO.getProductQuantity();
          if(result<0){
+             log.error("【商品】商品库存不足，productInfo == {}",productInfo );
              throw  new GameException(ResultEnum.PRODUCT_NOT_ENOUGH);
          }
          productInfo.setProductStock(result);
          productDao.save(productInfo);
      }
+    }
+    @Override
+    public ProductInfo onSale(String productId) {
+        ProductInfo productInfo = productDao.getOne(productId);
+        if (productInfo == null) {
+            throw new GameException(ResultEnum.PRODUCT_NOT_EXIST);
+        }
+        if (productInfo.getProductStatus() == ProductStatusEnum.UP.getCode()) {
+            throw new GameException(ResultEnum.PRODUCT_STATUS_ERROR);
+        }
+
+        //更新
+        productInfo.setProductStatus(ProductStatusEnum.UP.getCode());
+        return productDao.save(productInfo);
+    }
+
+    @Override
+    public ProductInfo offSale(String productId) {
+        ProductInfo productInfo = productDao.getOne(productId);
+        if (productInfo == null) {
+            throw new GameException(ResultEnum.PRODUCT_NOT_EXIST);
+        }
+        if (productInfo.getProductStatus() == ProductStatusEnum.DOWN.getCode()) {
+            throw new GameException(ResultEnum.PRODUCT_STATUS_ERROR);
+        }
+
+        //更新
+        productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
+        return productDao.save(productInfo);
     }
 }

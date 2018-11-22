@@ -23,7 +23,7 @@ public class OrderMasterDaoTest {
     @Test
     public void saveTest(){
         OrderMaster orderMaster =new OrderMaster();
-        orderMaster.setOrderId("124");
+        orderMaster.setOrderId("123456");
         orderMaster.setBuyerName("叶俊辉");
         orderMaster.setBuyerPhone("17865428032");
         orderMaster.setBuyerAddress("青岛市浮山公寓");

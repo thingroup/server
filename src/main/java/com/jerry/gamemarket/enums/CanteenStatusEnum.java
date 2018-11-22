@@ -12,7 +12,7 @@ import javax.persistence.Enumerated;
 public enum CanteenStatusEnum {
 
     Canteen_CLOSE(1,"打烊"),
-    Canteen_OPEN(2,"开业"),
+    Canteen_OPEN(0,"开业"),
             ;
     private Integer code;
     private String message;

@@ -14,7 +14,6 @@ import java.util.Random;
 
 @SpringBootApplication
 @EnableSwagger2
-@EnableEurekaServer
 public class GamemarketApplication {
 
 	public static void main(String[] args) {
@@ -30,7 +29,7 @@ public class GamemarketApplication {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(apiInfo())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.jerry.springbootdemo.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.jerry.gamemarket.controller"))
 				.paths(PathSelectors.any())
 				.build();
 	}

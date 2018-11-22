@@ -57,7 +57,6 @@ public class BuyerProductController {
             productVO.setCategoryType(productCategory.getCategoryType());
             productVO.setCategoryName(productCategory.getCategoryName());
 
-
             List<ProductInfoVO> productInfoVOList = new ArrayList<>();
 
             for (ProductInfo productInfo: productInfoList){

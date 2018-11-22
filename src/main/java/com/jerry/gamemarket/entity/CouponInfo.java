@@ -22,7 +22,6 @@ public class CouponInfo {
   private Integer couponStock;
   private String couponDescription;
   private String couponIcon;
-  private Integer categoryType;
 //  折扣
   private BigDecimal couponDiscount;
 //  满减金额
@@ -35,6 +34,6 @@ public class CouponInfo {
   private Date updateTime;
   private Date deadline;
   private Date couponStatus;
-  private String buyerOpenid;
   private String canteenId;
+  private String productId;
   }

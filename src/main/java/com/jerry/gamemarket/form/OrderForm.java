@@ -26,15 +26,15 @@ public class OrderForm {
 //    购物车
     @NotEmpty(message = "购物车必填")
     private String items;
-//    预订要来的人数必填
-    @NotEmpty(message = "预订人数必填")
-    private Integer peopleNum;
+////    预订要来的人数必填
+//    @NotEmpty(message = "预订人数必填")
+//    private Integer peopleNum;
 //    预订包间数量
     @NotEmpty(message = "预订包间数必填")
     private String roomQuantity;
 
-    @NotEmpty(message = "预约时间必填")
-    private Date appointmentTime;
-//    备注
-    private String comment;
+//    @NotEmpty(message = "预约时间必填")
+//    private Date appointmentTime;
+////    备注
+//    private String comment;
 }

@@ -1,17 +1,15 @@
 package com.jerry.gamemarket.entity;
 
-import com.jerry.gamemarket.enums.OrderStatusEnum;
-import com.jerry.gamemarket.enums.PayStatusEnum;
+import com.jerry.gamemarket.enums.OrderStatusEnums;
+import com.jerry.gamemarket.enums.PayStatusEnums;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Proxy;
-import org.springframework.data.annotation.Transient;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity
@@ -32,9 +30,9 @@ public class OrderMaster {
 
     private BigDecimal orderAmount;
 //    默认新订单
-    private Integer orderStatus= OrderStatusEnum.NEW.getCode();
+    private Integer orderStatus= OrderStatusEnums.NEW.getCode();
 //    默认未支付
-    private Integer payStatus= PayStatusEnum.WAIT.getCode();
+    private Integer payStatus= PayStatusEnums.WAIT.getCode();
 //    优惠的金额
     private BigDecimal couponAmount;
 //    餐厅Id

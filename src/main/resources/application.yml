@@ -9,9 +9,9 @@ Spring:
   jackson:
     default-property-inclusion: non_null
 server:
-  servlet:
-    context-path: /gamemarket
-  port: 8686
+#  servlet:
+#    context-path: /gamemarket
+  port: 8087
   #eureka的主机名
   eureka:
     instance:
@@ -21,3 +21,22 @@ server:
       fetchRegistry: false
       serviceUrl:
         defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+wechat:
+  mpAppId: wx4bd58aa2a23729c9
+  mpAppSecret: 56efea63b62766bd30e46ca498105b0b
+
+projectUrlConfig:
+  mpAuthorizeUrl: http://jtogether.natapp1.cc
+  openAuthorizeUrl: http://jtogether.natapp1.cc
+  sell: http://jtogether.natapp1.cc
+
+spring:
+  freemarker:
+    suffix: .ftl  #后缀名
+    content-type: text/html
+    enabled: true
+    cache: false #缓存配置
+#    template-loader-path: classpath:/templates/order #模板加载路径 按需配置
+    charset: UTF-8 #编码格式
+    settings:
+      number_format: '0.##'

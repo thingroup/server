@@ -9,7 +9,6 @@ import com.jerry.gamemarket.form.OrderForm;
 import com.jerry.gamemarket.service.BuyerService;
 import com.jerry.gamemarket.service.OrderService;
 import com.jerry.gamemarket.utils.ResultVOUtil;
-import com.sun.xml.internal.bind.v2.TODO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +27,7 @@ import java.util.Map;
  * author by 李兆杰
  * Date 2018/10/7
  */
+@CrossOrigin
 @Slf4j
 @RestController
 @RequestMapping("/buyer/order")

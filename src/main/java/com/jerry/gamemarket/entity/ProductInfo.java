@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Lazy;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /*
 * 游戏商品信息
@@ -37,7 +38,11 @@ public class ProductInfo {
     private Integer categoryType;
 //    产品状态 0为正常出售，1为无货或者下架
     private int productStatus;
-//    产品餐厅
+//    餐厅id
     private String canteenId;
+
+    private Date createTime;
+
+    private Date updateTime;
 
 }

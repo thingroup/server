@@ -5,18 +5,14 @@ import com.jerry.gamemarket.dao.OrderDetailDao;
 import com.jerry.gamemarket.dao.OrderMasterDao;
 import com.jerry.gamemarket.dto.CartDTO;
 import com.jerry.gamemarket.dto.OrderDTO;
-import com.jerry.gamemarket.entity.CouponInfo;
 import com.jerry.gamemarket.entity.OrderDetail;
 import com.jerry.gamemarket.entity.OrderMaster;
 import com.jerry.gamemarket.entity.ProductInfo;
-import com.jerry.gamemarket.enums.OrderStatusEnum;
-import com.jerry.gamemarket.enums.PayStatusEnum;
+import com.jerry.gamemarket.enums.OrderStatusEnums;
+import com.jerry.gamemarket.enums.PayStatusEnums;
 import com.jerry.gamemarket.enums.ResultEnum;
 import com.jerry.gamemarket.exception.GameException;
-import com.jerry.gamemarket.service.CanteenService;
-import com.jerry.gamemarket.service.CouponService;
-import com.jerry.gamemarket.service.OrderService;
-import com.jerry.gamemarket.service.ProductService;
+import com.jerry.gamemarket.service.*;
 import com.jerry.gamemarket.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -45,14 +41,14 @@ public class OrderServiceImpl implements OrderService {
     private CanteenService canteenService;
     @Autowired
     private CouponService couponService;
+    @Autowired
+    private PayService payService;
     @Override
     @Transactional
     public OrderDTO create(OrderDTO orderDTO) {
 //        1.查询商品（数量，价格）
         String orderId = KeyUtil.genUniquekey();
         BigDecimal orderAmount = new BigDecimal(BigInteger.ZERO);
-        BigDecimal couponAmount = new BigDecimal(BigInteger.ZERO);
-        BigDecimal singleAmount = new BigDecimal(BigInteger.ZERO);
 
         for (OrderDetail orderDetail : orderDTO.getOrderDetailList()) {
             ProductInfo productInfo = productService.findOne(orderDetail.getProductId());
@@ -64,18 +60,6 @@ public class OrderServiceImpl implements OrderService {
             orderAmount = productInfo.getProductPrice()
                     .multiply(new BigDecimal(orderDetail.getProductQuantity()))
                     .add(orderAmount);
-//          2.1 计算产品优惠价格
-            List<CouponInfo> couponInfoList =couponService.findByProductId(orderDetail.getProductId());
-            for(CouponInfo couponInfo : couponInfoList){
-                if (couponInfo.getCategoryType()==1&&orderDetail.getProductQuantity()==1){
-                    singleAmount= productInfo.getProductPrice().multiply(couponInfo.getCouponDiscount());
-                }
-                couponAmount=singleAmount.multiply(new BigDecimal(orderDetail.getProductQuantity()))
-                        .add(couponAmount);
-            }
-
-
-
 //            查看该用户是否拥有优惠券
 //            查看订单详情中的产品id可使用的优惠券
 //            根据优惠券类型进行优惠
@@ -94,8 +78,8 @@ public class OrderServiceImpl implements OrderService {
             orderDTO.setOrderId(orderId);
             BeanUtils.copyProperties(orderDTO,orderMaster);
             orderMaster.setOrderAmount(orderAmount);
-            orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
-            orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
+            orderMaster.setOrderStatus(OrderStatusEnums.NEW.getCode());
+            orderMaster.setPayStatus(PayStatusEnums.WAIT.getCode());
             orderMasterDao.save(orderMaster);
 //         CartDTO cartDTO = new CartDTO(orderDetail.getProductId(),orderDetail.getProductQuantity());
 //         cartDTOList.add(cartDTO);
@@ -105,10 +89,10 @@ public class OrderServiceImpl implements OrderService {
                     new CartDTO(e.getProductId(),e.getProductQuantity()))
                     .collect(Collectors.toList());
             productService.decreaseStock(cartDTOList);
-//         扣包间数量
-             Integer roomQuantity = orderDTO.getRoomQuantity() ;
-             String canteenid = orderDTO.getCanteenId();
-            canteenService.decreaseStock(canteenid,roomQuantity);
+////         扣包间数量
+//             Integer roomQuantity = orderDTO.getRoomQuantity() ;
+//             String canteenid = orderDTO.getCanteenId();
+//            canteenService.decreaseStock(canteenid,roomQuantity);
             return orderDTO;
     }
     @Override
@@ -141,12 +125,12 @@ public class OrderServiceImpl implements OrderService {
     public OrderDTO cancel(OrderDTO orderDTO) {
         OrderMaster orderMaster =new OrderMaster();
  //    判断订单状态
-        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())){
+        if(!orderDTO.getOrderStatus().equals(OrderStatusEnums.NEW.getCode())){
             log.error("【取消订单】订单状态不正确，orderId={}，orderStatus={}",orderDTO.getOrderId(),orderDTO.getOrderStatus());
             throw new GameException(ResultEnum.ORDER_STATUS_ERROR);
         }
 //    修改订单状态
-        orderDTO.setOrderStatus(OrderStatusEnum.CANCEL.getCode());
+        orderDTO.setOrderStatus(OrderStatusEnums.CANCEL.getCode());
         BeanUtils.copyProperties(orderDTO,orderMaster);
         OrderMaster updateResult = orderMasterDao.save(orderMaster);
         if(updateResult==null){
@@ -163,13 +147,13 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
         productService.increaseStock(cartDTOList);
 //        返回包间库存
-        Integer roomQuantity = orderDTO.getRoomQuantity() ;
-        String canteenid = orderDTO.getCanteenId();
-        canteenService.increaseStock(canteenid,roomQuantity);
+//        Integer roomQuantity = orderDTO.getRoomQuantity() ;
+//        String canteenid = orderDTO.getCanteenId();
+//        canteenService.increaseStock(canteenid,roomQuantity);
 
 //    如果已支付，需要退款
-        if(orderDTO.getPayStatus().equals(PayStatusEnum.FINISHED.getCode())){
-//            TODO
+        if(orderDTO.getPayStatus().equals(PayStatusEnums.FINISH.getCode())){
+            payService.refund(orderDTO);
         }
         return orderDTO;
     }
@@ -178,12 +162,12 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderDTO finish(OrderDTO orderDTO) {
 //        判断订单状态
-        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())){
+        if(!orderDTO.getOrderStatus().equals(OrderStatusEnums.NEW.getCode())){
             log.error("【完结订单】订单状态不正确，orderId={}，orderStatus={}",orderDTO.getOrderId(),orderDTO.getOrderStatus());
             throw new GameException(ResultEnum.ORDER_STATUS_ERROR);
         }
 //        修改状态
-        orderDTO.setOrderStatus(OrderStatusEnum.FINISHED.getCode());
+        orderDTO.setOrderStatus(OrderStatusEnums.FINISH.getCode());
         OrderMaster orderMaster = new OrderMaster();
         BeanUtils.copyProperties(orderDTO,orderMaster);
         OrderMaster updateResult = orderMasterDao.save(orderMaster);
@@ -198,18 +182,18 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderDTO paid(OrderDTO orderDTO) {
 //        判断订单状态
-        if (!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
+        if (!orderDTO.getOrderStatus().equals(OrderStatusEnums.NEW.getCode())) {
             log.error("【支付订单完成】订单状态不正确，orderId={}，orderStatus={}", orderDTO.getOrderId(), orderDTO.getOrderStatus());
             throw new GameException(ResultEnum.ORDER_STATUS_ERROR);
         }
 
 //        判断支付状态
-        if (!orderDTO.getOrderStatus().equals(PayStatusEnum.WAIT.getCode())) {
+        if (!orderDTO.getOrderStatus().equals(PayStatusEnums.WAIT.getCode())) {
             log.error("【支付订单完成】订单状态不正确，orderDTO={}", orderDTO);
             throw new GameException(ResultEnum.ORDER_PAY_STATUS_ERROR);
         }
 //        修改支付状态
-        orderDTO.setPayStatus(PayStatusEnum.FINISHED.getCode());
+        orderDTO.setPayStatus(PayStatusEnums.FINISH.getCode());
         OrderMaster orderMaster = new OrderMaster();
         BeanUtils.copyProperties(orderDTO, orderMaster);
         OrderMaster updateResult = orderMasterDao.save(orderMaster);
@@ -218,5 +202,14 @@ public class OrderServiceImpl implements OrderService {
             throw new GameException(ResultEnum.ORDER_PAY_STATUS_ERROR);
         }
         return orderDTO;
+    }
+    @Override
+    public Page<OrderDTO> findList(Pageable pageable) {
+        Page<OrderMaster> orderMasters = orderMasterDao.findAll(pageable);
+
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConvertor.convert(orderMasters.getContent());
+
+        return new PageImpl<>(orderDTOList , pageable , orderMasters.getTotalElements());
+
     }
 }

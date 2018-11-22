@@ -34,8 +34,6 @@ public class ProductCategory {
     private String categoryName;
 //    类目编号
     private Integer categoryType;
-//    餐厅id
-    private String  canteenId;
 ////    更新时间
 //    private Date updateTime;
 ////    创建时间
