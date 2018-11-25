@@ -1,9 +1,14 @@
 package com.jerry.gamemarket.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.jerry.gamemarket.dto.OrderDTO;
+import com.jerry.gamemarket.dto.StatisticOrderDTO;
 import com.jerry.gamemarket.entity.OrderMaster;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+import java.util.Map;
 
 public interface OrderService {
 //    创建订单
@@ -20,4 +25,11 @@ public interface OrderService {
     OrderDTO paid(OrderDTO orderDTO);
     /**查找订单.**/
     Page<OrderDTO> findList(Pageable pageable);
+//  多条件查询
+//    Page<OrderDTO> findbyNameAndCanteenId(String buyerName,String canteenId,Pageable pageable);
+//  可选条件查询
+    Page<OrderDTO> findByCase(String tip,String text,Pageable pageable);
+
+//    统计
+   List<StatisticOrderDTO> statis();
 }

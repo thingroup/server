@@ -125,4 +125,6 @@ public class SellerCanteenController {
         map.put("url", "/seller/canteen/list");
         return new ModelAndView("common/success", map);
     }
+
+
 }

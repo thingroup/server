@@ -1,19 +1,30 @@
 package com.jerry.gamemarket.controller;
 
+import com.jerry.gamemarket.VO.ResultVO;
+import com.jerry.gamemarket.dao.OrderMasterDao;
 import com.jerry.gamemarket.dto.OrderDTO;
+import com.jerry.gamemarket.dto.StatisticOrderDTO;
+import com.jerry.gamemarket.entity.OrderMaster;
 import com.jerry.gamemarket.enums.ResultEnum;
 import com.jerry.gamemarket.exception.GameException;
+import com.jerry.gamemarket.form.ProductForm;
+import com.jerry.gamemarket.form.SearchForm;
 import com.jerry.gamemarket.service.OrderService;
+import com.jerry.gamemarket.utils.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,7 +38,8 @@ public class SellerOrderController {
 
     @Autowired
     private OrderService orderService;
-
+    @Autowired
+    private OrderMasterDao orderMasterDao;
     @GetMapping("/list")
     public ModelAndView list(@RequestParam(required = false , value = "page" , defaultValue = "1") Integer page,
                              @RequestParam(required = false , value = "size" , defaultValue = "10") Integer size,
@@ -97,5 +109,46 @@ public class SellerOrderController {
         map.put("url" , "list");
         return new ModelAndView("/common/success" , map);
     }
+    //模糊查询
+    @GetMapping("/findByNameLike/{name}")
+    public List<OrderMaster> findByNameLike(@PathVariable(value = "buyername") String buyername){
+        // 一定要加 "%"+参数名+"%"
+        return orderMasterDao.findByBuyerNameLike(buyername);
+    }
+    //多条件查询
+//    @GetMapping("/findByNameAndCanteenId")
+//    public ModelAndView findByNameAndCanteenId(@RequestParam(required = false , value = "page" , defaultValue = "1") Integer page,
+//                                               @RequestParam(required = false , value = "size" , defaultValue = "10") Integer size,
+//                                               @RequestParam("buyername")String buyername,@RequestParam("canteenId")String canteenId,
+//                                              Map<String,Object> map){
+//        PageRequest pageRequest = new PageRequest(page -1 , size);
+//        Page<OrderDTO> orderDTOS = orderService.findbyNameAndCanteenId(buyername,canteenId,pageRequest);
+//
+//        return null;
+//    }
+//  可选下拉框查询
+        @PostMapping("/findByCase")
+        public ModelAndView findByCase(@RequestParam(required = false , value = "page" , defaultValue = "0") Integer page,
+                                                   @RequestParam(required = false , value = "size" , defaultValue = "10") Integer size,
+                                                   @Valid SearchForm form,
+                                                   Map<String,Object> map){
+//            form.getTip()=request.getParameter("group1");
+            PageRequest pageRequest = new PageRequest(page, size);
+            Page<OrderDTO> orderS = orderService.findByCase(form.getTip(),form.getText(),pageRequest);
+            System.out.println(orderS);
+            map.put("orderS" , orderS);
+            map.put("currentPage" , page);
+            map.put("size" , size);
 
+            System.out.println(form.getTip());
+            System.out.println(form.getText());
+            return new ModelAndView("order/result" , map);
+}
+        @GetMapping(value="/Test")
+        public ModelAndView echartsTest(Map<String,Object> map){
+            List<StatisticOrderDTO> results = orderService.statis();
+            map.put("results",results);
+            System.out.println(results);
+            return new ModelAndView("order/demo",map);
+        }
 }

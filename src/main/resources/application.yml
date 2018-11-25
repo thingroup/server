@@ -8,6 +8,10 @@ Spring:
     show-sql: true
   jackson:
     default-property-inclusion: non_null
+  data:
+    elasticsearch:
+      repositories.enabled: true
+
 server:
 #  servlet:
 #    context-path: /gamemarket

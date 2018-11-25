@@ -5,9 +5,10 @@ import com.jerry.gamemarket.enums.PayStatusEnums;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Proxy;
-
+import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -16,10 +17,12 @@ import java.util.Date;
 @DynamicUpdate
 //设置懒加载为false
 @Proxy(lazy = false)
-public class OrderMaster {
+//@Document(indexName = "Gamemarket" ,type="OrderMaster")
+public class OrderMaster  implements Serializable {
+
     @Id
     private  String orderId;
-
+//   private String id;
     private  String buyerName;
 
     private  String buyerPhone;

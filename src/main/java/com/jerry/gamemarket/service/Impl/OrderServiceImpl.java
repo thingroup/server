@@ -1,10 +1,12 @@
 package com.jerry.gamemarket.service.Impl;
 
 import com.jerry.gamemarket.convertor.OrderMaster2OrderDTOConvertor;
+import com.jerry.gamemarket.convertor.OrderMaster2StatisticOrderDTOConvertor;
 import com.jerry.gamemarket.dao.OrderDetailDao;
 import com.jerry.gamemarket.dao.OrderMasterDao;
 import com.jerry.gamemarket.dto.CartDTO;
 import com.jerry.gamemarket.dto.OrderDTO;
+import com.jerry.gamemarket.dto.StatisticOrderDTO;
 import com.jerry.gamemarket.entity.OrderDetail;
 import com.jerry.gamemarket.entity.OrderMaster;
 import com.jerry.gamemarket.entity.ProductInfo;
@@ -25,9 +27,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 @Service
 @Slf4j
 public class OrderServiceImpl implements OrderService {
@@ -212,4 +219,31 @@ public class OrderServiceImpl implements OrderService {
         return new PageImpl<>(orderDTOList , pageable , orderMasters.getTotalElements());
 
     }
+
+//    @Override
+//    public Page<OrderDTO> findbyNameAndCanteenId(String buyerName, String canteenId,Pageable pageable) {
+//        return orderMasterDao.findByNameAndCanteenId(buyerName,canteenId,pageable);
+//    }
+
+    @Override
+    public Page<OrderDTO> findByCase(String tip, String text, Pageable pageable) {
+        return orderMasterDao.findByCase(tip,text,pageable);
+    }
+
+    @Override
+    public List<StatisticOrderDTO> statis() {
+        List<?> result=orderMasterDao.StatisOrderCount();
+        List<StatisticOrderDTO> statisticOrderDTOList =new ArrayList<>();
+        for(int i=0;i<result.size();i++){
+            StatisticOrderDTO statisticOrderDTO =new StatisticOrderDTO();
+            Object[] obj = (Object[])result.get(i);
+            statisticOrderDTO.setCanteenId(obj[0].toString());
+            statisticOrderDTO.setOrderNum(Integer.parseInt(obj[1].toString()));
+            statisticOrderDTO.setCanteenName(obj[2].toString());
+            statisticOrderDTOList.add(statisticOrderDTO);
+        }
+        return statisticOrderDTOList;
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.jerry.gamemarket.service.Impl;
 
 import com.jerry.gamemarket.dto.OrderDTO;
+import com.jerry.gamemarket.dto.StatisticOrderDTO;
 import com.jerry.gamemarket.entity.OrderDetail;
 import com.jerry.gamemarket.enums.OrderStatusEnums;
 import com.jerry.gamemarket.enums.PayStatusEnums;
@@ -21,6 +22,24 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class OrderServiceImplTest {
+    @Test
+    public void statis() throws Exception {
+        List<StatisticOrderDTO> statisticOrderDTOS=orderService.statis();
+        System.out.println(statisticOrderDTOS);
+    }
+//    @Test
+//    public void statis() throws Exception {
+//        List<StatisticOrderDTO> statisticOrderDTOS=orderService.statis();
+//        System.out.println(statisticOrderDTOS);
+//    }
+
+    @Test
+    public void findByCase() throws Exception {
+        PageRequest request = new PageRequest(0,2);
+        Page<OrderDTO> orderDTOPage=orderService.findByCase("order_id","1508001584066370209",request);
+        log.info("查询单个订单result={}", orderDTOPage);
+    }
+
     private  final String BUYER_OPENID="15131215";
     @Autowired
     private OrderServiceImpl orderService;

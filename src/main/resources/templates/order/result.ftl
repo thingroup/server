@@ -1,17 +1,5 @@
 <html>
 <#include "../common/header.ftl">
-<#--<script language="javascript" type="text/javascript">-->
-    <#--function gettypename(){-->
-        <#--$("#typename").val();-->
-        <#--var typename = $('#typeid option:selected') .text();//选中的值-->
-        <#--var typename_val = $('#typeid option:selected') .val();//选中的value-->
-        <#--if(typename_val==""){-->
-            <#--$("#typename").val("");-->
-        <#--}else{-->
-            <#--$("#typename").val(typename);-->
-        <#--}-->
-    <#--}-->
-<#--</script>-->
 
 <body>
 <div id="wrapper" class="toggled">
@@ -26,35 +14,6 @@
                 <div class="col-md-10 column">
 
                     <div align="center"><h3>订单列表</h3></div>
-                    <nav class="navbar navbar-default" role="navigation">
-                        <div class="navbar-header">
-                            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">检索订单</a>
-                        </div>
-
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                            <form class="navbar-form navbar-left" role="form" method="post" action="/seller/order/findByCase">
-                                <div class="form-group">
-                                    <select name="tip" class="form-control" >
-                                        <option>---请选择---</option>
-                                        <option value="order_id">订单ID</option>
-                                        <option value="buyer_name">姓名</option>
-                                        <option value="buyer_phone">手机号</option>
-                                        <option value="buyer_address">地址</option>
-                                        <option value="order_amount">金额</option>
-                                        <option value="canteen_id">店铺ID</option>
-                                        <option value="order_status">订单状态 </option>
-                                        <option value="pay_status">支付状态</option>
-                                    </select>
-                                </div>  <div class="nav navbar-left">
-                                <input name="text" type="text" class="form-control"/>
-                            </div>
-                                <button class="btn btn-default" type="submit" >Search</button>
-                            </form>
-
-                        </div>
-
-                    </nav>
 
                     <table class="table table-bordered table-hover">
                         <thead>
@@ -72,7 +31,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <#list orderDTOS.content as orderDTO>
+                        <#list orderS.content as orderDTO>
                         <tr>
                             <td>${orderDTO.orderId}</td>
                             <td>${orderDTO.buyerName}</td>
@@ -120,17 +79,17 @@
                             </li>
                         <#else >
                             <li>
-                                <a href="/seller/order/list?page=${currentPage -1}&size=${size}">上一页</a>
+                                <a href="/seller/order/findByCase?page=${currentPage -1}&size=${size}">上一页</a>
                             </li>
                         </#if>
-                        <#list 1..orderDTOS.getTotalPages() as index>
+                        <#list 0..orderS.getTotalPages() as index>
                             <#if currentPage == index>
                                 <li class="disabled"> <a href="#">${index}</a></li>
                             <#else >
-                                <li><a href="/seller/order/list?page=${index}&size=${size}"> ${index}</a></li>
+                                <li><a href="/seller/order/findByCase?page=${index}&size=${size}"> ${index}</a></li>
                             </#if>
                         </#list>
-                        <#if currentPage gte orderDTOS.getTotalPages()>
+                        <#if currentPage gte orderS.getTotalPages()>
                             <li class="disabled">
                                 <a href="#">下一页</a>
                             </li>

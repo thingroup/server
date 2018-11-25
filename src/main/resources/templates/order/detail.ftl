@@ -18,12 +18,14 @@
                         <tr>
                             <th>订单id</th>
                             <th>订单总金额</th>
+                            <th>餐厅ID</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>${orderDTO.orderId}</td>
                             <td>${orderDTO.orderAmount}</td>
+                            <td>${orderDTO.canteenId}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -49,6 +51,7 @@
                             <td>${orderDetail.productPrice}</td>
                             <td>${orderDetail.productQuantity}</td>
                             <td>${orderDetail.productQuantity * orderDetail.productPrice}</td>
+
                         </tr>
                         </#list>
                         </tbody>
