@@ -51,4 +51,6 @@ public class OrderMaster  implements Serializable {
 
     private String comment;
 
+    private String canteenName;
+
 }

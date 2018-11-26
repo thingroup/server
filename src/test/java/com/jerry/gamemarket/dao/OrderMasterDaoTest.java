@@ -23,6 +23,21 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class OrderMasterDaoTest {
+    @Test
+    public void statisOrderCountByMonth() throws Exception {
+        List<?> result =orderMasterDao.StatisOrderCountByMonth(2018);
+        List<Map> list=new ArrayList<Map>();
+        for(int i=0;i<result.size();i++){
+            Object[] obj = (Object[])result.get(i);
+            Map<String,Object> map=new HashMap<String,Object>();
+            map.put("month", obj[0]);
+            map.put("orderCount", obj[1]);
+            list.add(map);
+        }
+        for (int i = 0; i <list.size() ; i++) {
+            System.out.println(list.get(i));
+        }
+    }
 //    @Transactional
 //    @Test
 //    public void deleteByBuyerNameAndCanteenId() throws Exception {

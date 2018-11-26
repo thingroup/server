@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<#include "../common/header.ftl">
 <head>
     <meta charset="UTF-8">
     <title>Demo</title>
@@ -7,9 +8,11 @@
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
 </head>
 <body>
+<div id="wrapper" class="toggled">
+<#include "../common/nav.ftl">
 <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
 <div id="main" style="width: 600px;height:400px;position:absolute;top:50%;left: 50%;margin-top: -200px;margin-left: -300px;"></div>
-
+</div>
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'));//main是<div id="main" style="width: 600px;height:400px;"></div>的id

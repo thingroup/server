@@ -2,6 +2,7 @@ package com.jerry.gamemarket.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.jerry.gamemarket.dto.OrderDTO;
+import com.jerry.gamemarket.dto.StatisticMonthDTO;
 import com.jerry.gamemarket.dto.StatisticOrderDTO;
 import com.jerry.gamemarket.entity.OrderMaster;
 import org.springframework.data.domain.Page;
@@ -30,6 +31,8 @@ public interface OrderService {
 //  可选条件查询
     Page<OrderDTO> findByCase(String tip,String text,Pageable pageable);
 
-//    统计
+//    统计店铺订单数量
    List<StatisticOrderDTO> statis();
+//   统计月份订单数量
+    List<StatisticMonthDTO> statisByMonth();
 }

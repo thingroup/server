@@ -35,7 +35,7 @@
             padding-left: 180px;
         }
         #wrapper.toggled #sidebar-wrapper {
-            width: 160px;
+            width: 180px;
         }
         #sidebar-wrapper {
             -moz-transition: all 0.5s ease;

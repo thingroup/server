@@ -30,6 +30,7 @@ public class OrderDTO {
     public OrderDTO() {
     }
     private String canteenId;
+    private String canteenName;
     private  String buyerOpenid;
 
     private BigDecimal orderAmount;

@@ -3,6 +3,7 @@ package com.jerry.gamemarket.controller;
 import com.jerry.gamemarket.VO.ResultVO;
 import com.jerry.gamemarket.dao.OrderMasterDao;
 import com.jerry.gamemarket.dto.OrderDTO;
+import com.jerry.gamemarket.dto.StatisticMonthDTO;
 import com.jerry.gamemarket.dto.StatisticOrderDTO;
 import com.jerry.gamemarket.entity.OrderMaster;
 import com.jerry.gamemarket.enums.ResultEnum;
@@ -144,11 +145,17 @@ public class SellerOrderController {
             System.out.println(form.getText());
             return new ModelAndView("order/result" , map);
 }
-        @GetMapping(value="/Test")
+        @GetMapping(value="/canteenStatistic")
         public ModelAndView echartsTest(Map<String,Object> map){
             List<StatisticOrderDTO> results = orderService.statis();
             map.put("results",results);
             System.out.println(results);
             return new ModelAndView("order/demo",map);
+        }
+        @GetMapping(value="/orderStatistic")
+        public ModelAndView echartsTest2(Map<String,Object> map){
+            List<StatisticMonthDTO> months = orderService.statisByMonth();
+            map.put("months",months);
+            return new ModelAndView("order/demo2",map);
         }
 }

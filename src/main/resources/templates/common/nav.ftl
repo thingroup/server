@@ -5,8 +5,13 @@
                 后台管理系统
             </a>
         </li>
-        <li>
-            <a href="/seller/order/list"><i class="fa fa-fw fa-list-alt"></i> 订单</a>
+        <li class="dropdown open">
+            <a href="/seller/order/list" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-fw fa-list-alt"></i> 订单列表<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-header">操作</li>
+                <li><a href="/seller/order/canteenStatistic">店铺订单统计图</a></li>
+                <li><a href="/seller/order/orderStatistic">全年订单统计图</a></li>
+            </ul>
         </li>
         <li class="dropdown open">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-fw fa-plus"></i> 店铺 <span class="caret"></span></a>

@@ -6,6 +6,7 @@ import com.jerry.gamemarket.dao.OrderDetailDao;
 import com.jerry.gamemarket.dao.OrderMasterDao;
 import com.jerry.gamemarket.dto.CartDTO;
 import com.jerry.gamemarket.dto.OrderDTO;
+import com.jerry.gamemarket.dto.StatisticMonthDTO;
 import com.jerry.gamemarket.dto.StatisticOrderDTO;
 import com.jerry.gamemarket.entity.OrderDetail;
 import com.jerry.gamemarket.entity.OrderMaster;
@@ -243,6 +244,20 @@ public class OrderServiceImpl implements OrderService {
             statisticOrderDTOList.add(statisticOrderDTO);
         }
         return statisticOrderDTOList;
+    }
+
+    @Override
+    public List<StatisticMonthDTO> statisByMonth() {
+        List<?> result=orderMasterDao.StatisOrderCountByMonth(2018);
+        List<StatisticMonthDTO> statisticMonthDTOS =new ArrayList<>();
+        for(int i=0;i<result.size();i++){
+            StatisticMonthDTO statisticMonthDTO =new StatisticMonthDTO();
+            Object[] obj = (Object[])result.get(i);
+            statisticMonthDTO.setMonth(Integer.parseInt(obj[0].toString()));
+            statisticMonthDTO.setOrderNum(Integer.parseInt(obj[1].toString()));
+            statisticMonthDTOS.add(statisticMonthDTO);
+        }
+        return statisticMonthDTOS;
     }
 
 
