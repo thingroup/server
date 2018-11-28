@@ -1,6 +1,7 @@
 <head>
     <meta charset="utf-8">
     <title>聚餐吧app后台管理系统</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {

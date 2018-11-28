@@ -13,7 +13,7 @@
             <div class="row clearfix">
                 <div class="col-md-10 column">
 
-                    <div align="center"><h3>订单列表</h3></div>
+                    <div align="center"><h3>为您查找到以下订单</h3></div>
 
                     <table class="table table-bordered table-hover">
                         <thead>
@@ -31,7 +31,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <#list orderS.content as orderDTO>
+                        <#list queryResults.results as orderDTO>
                         <tr>
                             <td>${orderDTO.orderId}</td>
                             <td>${orderDTO.buyerName}</td>
@@ -71,35 +71,35 @@
                         </#list>
                         </tbody>
                     </table>
-                    <div class="col-md-12 column">
-                        <ul class="pagination pull-right">
-                        <#if currentPage lte 1>
-                            <li>
-                                <a href="#">上一页</a>
-                            </li>
-                        <#else >
-                            <li>
-                                <a href="/seller/order/findByCase?page=${currentPage -1}&size=${size}">上一页</a>
-                            </li>
-                        </#if>
-                        <#list 0..orderS.getTotalPages() as index>
-                            <#if currentPage == index>
-                                <li class="disabled"> <a href="#">${index}</a></li>
-                            <#else >
-                                <li><a href="/seller/order/findByCase?page=${index}&size=${size}"> ${index}</a></li>
-                            </#if>
-                        </#list>
-                        <#if currentPage gte orderS.getTotalPages()>
-                            <li class="disabled">
-                                <a href="#">下一页</a>
-                            </li>
-                        <#else >
-                            <li>
-                                <a href="/seller/order/list?page=${currentPage +1}&size=${size}">下一页</a>
-                            </li>
-                        </#if>
-                        </ul>
-                    </div>
+                    <#--<div class="col-md-12 column">-->
+                        <#--<ul class="pagination pull-right">-->
+                        <#--<#if currentPage lte 1>-->
+                            <#--<li>-->
+                                <#--<a href="#">上一页</a>-->
+                            <#--</li>-->
+                        <#--<#else >-->
+                            <#--<li>-->
+                                <#--<a href="/seller/order/findByCasebutton?page=${currentPage -1}&size=${size}">上一页</a>-->
+                            <#--</li>-->
+                        <#--</#if>-->
+                        <#--<#list 1..queryResults.total/size as index>-->
+                            <#--<#if currentPage == index>-->
+                                <#--<li class="disabled"> <a href="#">${index}</a></li>-->
+                            <#--<#else >-->
+                                <#--<li><a href="/seller/order/findByCasebutton?page=${index}&size=${size}"> ${index}</a></li>-->
+                            <#--</#if>-->
+                        <#--</#list>-->
+                        <#--<#if currentPage gte queryResults.total>-->
+                            <#--<li class="disabled">-->
+                                <#--<a href="#">下一页</a>-->
+                            <#--</li>-->
+                        <#--<#else >-->
+                            <#--<li>-->
+                                <#--<a href="/seller/order/findByCasebutton?page=${currentPage +1}&size=${size}">下一页</a>-->
+                            <#--</li>-->
+                        <#--</#if>-->
+                        <#--</ul>-->
+                    <#--</div>-->
                 </div>
             </div>
         </div>

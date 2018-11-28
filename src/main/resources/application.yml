@@ -10,7 +10,8 @@ Spring:
     default-property-inclusion: non_null
   data:
     elasticsearch:
-      repositories.enabled: true
+      cluster-name: elasticsearch
+      cluster-nodes: localhost:9300
 
 server:
 #  servlet:

@@ -1,17 +1,19 @@
-package com.jerry.gamemarket.form;
+package com.jerry.gamemarket.dto;
 
 import com.jerry.gamemarket.enums.OrderStatusEnums;
 import com.jerry.gamemarket.enums.PayStatusEnums;
 import lombok.Data;
+import org.springframework.context.annotation.Bean;
 
 import java.math.BigDecimal;
 
 /**
  * author by 李兆杰
- * Date 2018/11/24
+ * Date 2018/11/28
  */
 @Data
-public class SearchForm {
+public class SearchOrderDTO {
+
     private  String orderId;
     //   private String id;
     private  String buyerName;
@@ -29,7 +31,8 @@ public class SearchForm {
     //    默认未支付
     private Integer payStatus;
 
-    private Integer pageNum=1;
+    private Integer pageNum = 1;
 
     private Integer pageSize=100;
+
 }

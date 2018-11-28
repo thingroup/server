@@ -42,8 +42,7 @@ public interface OrderMasterDao extends JpaRepository<OrderMaster,String>{
     @Query(value = "SELECT MONTH(create_time),COUNT(*) AS num FROM order_master where YEAR(create_time)=?1 GROUP BY MONTH(create_time) asc",nativeQuery = true)
     List<String> StatisOrderCountByMonth(Integer year);
 
-//    @Transactional
-//    @Modifying
-//    @Query(value = "delete  from order_master where buyer_name=?1 and canteen_id=?2 ",nativeQuery = true)
-//    Integer deleteByBuyerNameAndCanteenId(String a,String b);
+
+
+
 }

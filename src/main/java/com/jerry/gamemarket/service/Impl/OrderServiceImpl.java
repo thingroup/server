@@ -4,22 +4,25 @@ import com.jerry.gamemarket.convertor.OrderMaster2OrderDTOConvertor;
 import com.jerry.gamemarket.convertor.OrderMaster2StatisticOrderDTOConvertor;
 import com.jerry.gamemarket.dao.OrderDetailDao;
 import com.jerry.gamemarket.dao.OrderMasterDao;
-import com.jerry.gamemarket.dto.CartDTO;
-import com.jerry.gamemarket.dto.OrderDTO;
-import com.jerry.gamemarket.dto.StatisticMonthDTO;
-import com.jerry.gamemarket.dto.StatisticOrderDTO;
+import com.jerry.gamemarket.dto.*;
 import com.jerry.gamemarket.entity.OrderDetail;
 import com.jerry.gamemarket.entity.OrderMaster;
 import com.jerry.gamemarket.entity.ProductInfo;
+import com.jerry.gamemarket.entity.QOrderMaster;
 import com.jerry.gamemarket.enums.OrderStatusEnums;
 import com.jerry.gamemarket.enums.PayStatusEnums;
 import com.jerry.gamemarket.enums.ResultEnum;
 import com.jerry.gamemarket.exception.GameException;
 import com.jerry.gamemarket.service.*;
 import com.jerry.gamemarket.utils.KeyUtil;
+import com.querydsl.core.QueryFactory;
+import com.querydsl.core.QueryResults;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +39,8 @@ import java.util.stream.Collectors;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.util.StringUtils;
+
 @Service
 @Slf4j
 public class OrderServiceImpl implements OrderService {
@@ -51,6 +56,8 @@ public class OrderServiceImpl implements OrderService {
     private CouponService couponService;
     @Autowired
     private PayService payService;
+    @Autowired
+    private JPAQueryFactory jpaQueryFactory;
     @Override
     @Transactional
     public OrderDTO create(OrderDTO orderDTO) {
@@ -258,6 +265,37 @@ public class OrderServiceImpl implements OrderService {
             statisticMonthDTOS.add(statisticMonthDTO);
         }
         return statisticMonthDTOS;
+    }
+
+    @Override
+    public QueryResults<OrderMaster> dymamicQuery(SearchOrderDTO searchOrderDTO) {
+        QOrderMaster o = QOrderMaster.orderMaster;
+        JPAQuery<OrderMaster> query = jpaQueryFactory.select(o).from(o);
+        if (!StringUtils.isEmpty(searchOrderDTO.getOrderId())){
+            query.where(o.orderId.like(searchOrderDTO.getOrderId()));
+        }
+        if (!StringUtils.isEmpty(searchOrderDTO.getBuyerName())){
+            query.where(o.buyerName.like("%"+searchOrderDTO.getBuyerName()+"%"));
+        }
+        if (!StringUtils.isEmpty(searchOrderDTO.getBuyerPhone())){
+            query.where(o.buyerPhone.eq(searchOrderDTO.getBuyerPhone()));
+        }
+        if (searchOrderDTO.getMaxAmount()!=null && searchOrderDTO.getMinAmount()!=null){
+            query.where(o.orderAmount.goe(searchOrderDTO.getMinAmount()));
+        }
+        if (searchOrderDTO.getMaxAmount()!=null && searchOrderDTO.getMinAmount()!=null){
+            query.where(o.orderAmount.loe(searchOrderDTO.getMaxAmount()));
+        }
+        if (searchOrderDTO.getOrderStatus()!=null){
+            query.where(o.orderStatus.eq(searchOrderDTO.getOrderStatus()));
+        }
+        if (searchOrderDTO.getPayStatus()!=null){
+            query.where(o.payStatus.eq(searchOrderDTO.getPayStatus()));
+        }
+        return query.orderBy(o.createTime.desc())
+                .offset((searchOrderDTO.getPageNum()-1)*searchOrderDTO.getPageSize())
+                .limit(searchOrderDTO.getPageSize())
+                .fetchResults();
     }
 
 

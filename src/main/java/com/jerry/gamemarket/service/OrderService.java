@@ -2,9 +2,12 @@ package com.jerry.gamemarket.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.jerry.gamemarket.dto.OrderDTO;
+import com.jerry.gamemarket.dto.SearchOrderDTO;
 import com.jerry.gamemarket.dto.StatisticMonthDTO;
 import com.jerry.gamemarket.dto.StatisticOrderDTO;
 import com.jerry.gamemarket.entity.OrderMaster;
+import com.querydsl.core.QueryResults;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -35,4 +38,7 @@ public interface OrderService {
    List<StatisticOrderDTO> statis();
 //   统计月份订单数量
     List<StatisticMonthDTO> statisByMonth();
+
+//    动态查询
+   QueryResults<OrderMaster> dymamicQuery(SearchOrderDTO searchOrderDTO);
 }

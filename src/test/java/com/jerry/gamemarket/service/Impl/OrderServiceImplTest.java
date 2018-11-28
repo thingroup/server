@@ -1,11 +1,15 @@
 package com.jerry.gamemarket.service.Impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jerry.gamemarket.dto.OrderDTO;
+import com.jerry.gamemarket.dto.SearchOrderDTO;
 import com.jerry.gamemarket.dto.StatisticMonthDTO;
 import com.jerry.gamemarket.dto.StatisticOrderDTO;
 import com.jerry.gamemarket.entity.OrderDetail;
+import com.jerry.gamemarket.entity.OrderMaster;
 import com.jerry.gamemarket.enums.OrderStatusEnums;
 import com.jerry.gamemarket.enums.PayStatusEnums;
+import com.querydsl.core.QueryResults;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +28,18 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class OrderServiceImplTest {
+    @Autowired
+    private ObjectMapper objectMapper;
+    @Test
+    public void dymamicQuery() throws Exception {
+        SearchOrderDTO searchOrderDTO =new SearchOrderDTO();
+        System.out.println(searchOrderDTO);
+        searchOrderDTO.setMinAmount(new BigDecimal(100));
+        searchOrderDTO.setMaxAmount(new BigDecimal(300));
+        QueryResults<OrderMaster> queryResults = orderService.dymamicQuery(searchOrderDTO);
+        System.out.println(objectMapper.writeValueAsString(queryResults));
+    }
+
     @Test
     public void statisByMonth() throws Exception {
         List<StatisticMonthDTO> statisticMonthDTOS=orderService.statisByMonth();

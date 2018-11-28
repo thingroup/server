@@ -24,32 +24,51 @@
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-md-10 column">
-
-                    <div align="center"><h3>订单列表</h3></div>
                     <nav class="navbar navbar-default" role="navigation">
-                        <div class="navbar-header">
-                            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">检索订单</a>
-                        </div>
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-                            <form class="navbar-form navbar-left" role="form" method="post" action="/seller/order/findByCase">
-                                <div class="form-group">
-                                    <select name="tip" class="form-control" >
-                                        <option>---请选择---</option>
-                                        <option value="order_id">订单ID</option>
-                                        <option value="buyer_name">姓名</option>
-                                        <option value="buyer_phone">手机号</option>
-                                        <option value="buyer_address">地址</option>
-                                        <option value="order_amount">金额</option>
-                                        <option value="canteen_id">店铺ID</option>
-                                        <option value="order_status">订单状态 </option>
-                                        <option value="pay_status">支付状态</option>
+                            <form  role="form" method="post" action="/seller/order/findByCase">
+
+                              <div  style="float: left">
+                                <label for="orderId">订单号</label>
+                                <input id="orderId" name="orderId" type="text" class="form-control"/>
+                              <label for="buyerName">用户姓名</label>
+                                <input id="buyerName" name="buyerName" type="text" class="form-control"/>
+                               </div>
+                                <div style="float: left;margin-left: 25px">
+                                    <label for="name">订单状态</label></br>
+                                    <select name="orderStatus" class="form-control"><option></option>
+                                        <option value="0"
+                                        </option>新订单
+                                        <option value="1"
+                                                </option>已完成订单
+                                        <option value="2"
+                                                </option>已取消订单
                                     </select>
-                                </div>  <div class="nav navbar-left">
-                                <input name="text" type="text" class="form-control"/>
-                            </div>
-                                <button class="btn btn-default" type="submit" >Search</button>
+
+                                    <label for="name">支付状态</label></br>
+                                    <select name="payStatus" class="form-control">
+                                        <option></option>
+                                        <option value="0"
+                                        </option>未支付
+                                        <option value="1"
+                                        </option>已支付
+                                        <option value="2"
+                                        </option>等待支付
+                                    </select>
+                                </div>
+
+                                    <div style="float: left;margin-left: 25px"><label>消费金额最大值</label> <input id="maxAmount" name="maxAmount" type="text" class="form-control"/>
+                                    <label>消费金额最小值</label> <input id="minAmount" name="minAmount" type="text" class="form-control"/>
+                                </div>
+                                    <div  style="float: left;margin-left: 25px">
+                                        <label for="orderId">店铺名称</label>
+                                        <input id="orderId" name="canteenName" type="text" class="form-control"/>
+                                        <label for="buyerName">联系方式</label>
+                                        <input id="buyerName" name="buyerPhone" type="text" class="form-control"/>
+                                    </div>
+                                <button class="btn btn-default" type="submit" style="margin-left: 50px;margin-top: 45px">点击检索</button></div>
                             </form>
 
                         </div>
@@ -147,6 +166,37 @@
     </div>
 
 </div>
+<script type="text/javascript">
+    var searchAjax = function (pageNum) {
+        var i = $("#orderId").val().trim();
+        var searchOrderDto = {
+            orderId: i,
+            buyerName: null,
+            buyerPhone: null,
+            buyerAddress: null,
+            canteenId: null,
+            maxAmount: null,
+            minAmount: null,
+            orderStatus: null,
+            payStatus: null,
+            pageNum: pageNum,
+            pageSize: 2
+        };
+        $.ajax({
+            url:'/seller/order/findByCaseAjax',
+            type: "post",
+            data:JSON.stringify(searchOrderDto),
+            contentType:'application/json',
+            dataType: "json",
+            success:function (data) {
+                console.log(data);
+            },
+            error: function(msg) {
+                console.log(msg)
+            }
+        })
 
+    }
+</script>
 </body>
 </html>
