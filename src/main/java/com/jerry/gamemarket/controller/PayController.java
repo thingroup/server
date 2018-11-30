@@ -18,6 +18,7 @@ import java.util.Map;
  * 微信支付
  * Created by Administrator on 2017/10/19 0019.
  */
+@CrossOrigin
 @Controller
 @Slf4j
 @RequestMapping("/pay")

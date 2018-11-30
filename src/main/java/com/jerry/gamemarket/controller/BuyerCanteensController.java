@@ -79,5 +79,15 @@ public class BuyerCanteensController {
         }
         return ResultVOUtil.success(canteenDTO);
     }
+    @GetMapping("/canteenslist")
+    public ResultVO prolist(){
+        List<CanteenInfo> canteenInfoList= null;
+        try {
+            canteenInfoList = canteenService.findUpAll();
+        }catch (GameException e) {
+            return null;
+        }
+        return ResultVOUtil.success(canteenInfoList);
+    }
 }
 

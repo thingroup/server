@@ -35,7 +35,7 @@ public class OrderMaster  implements Serializable {
 //    默认新订单
     private Integer orderStatus= OrderStatusEnums.NEW.getCode();
 //    默认未支付
-    private Integer payStatus= PayStatusEnums.WAIT.getCode();
+    private Integer payStatus= PayStatusEnums.NEW.getCode();
 //    优惠的金额
     private BigDecimal couponAmount;
 //    餐厅Id
@@ -52,5 +52,6 @@ public class OrderMaster  implements Serializable {
     private String comment;
 
     private String canteenName;
+    private Integer roomQuantity;
 
 }

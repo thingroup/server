@@ -32,7 +32,7 @@ public class OrderDTO {
     private String canteenId;
     private String canteenName;
     private  String buyerOpenid;
-
+    private Integer roomQuantity;
     private BigDecimal orderAmount;
 //    private BigDecimal couponAmount;
     //    默认新订单

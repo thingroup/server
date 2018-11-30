@@ -12,7 +12,8 @@ Spring:
     elasticsearch:
       cluster-name: elasticsearch
       cluster-nodes: localhost:9300
-
+  resources:
+    static-locations: classpath:/
 server:
 #  servlet:
 #    context-path: /gamemarket

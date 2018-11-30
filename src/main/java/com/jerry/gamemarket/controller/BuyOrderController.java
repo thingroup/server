@@ -56,6 +56,7 @@ public class BuyOrderController {
     }
 
     //    订单列表
+    @GetMapping("/list")
     public ResultVO<List<OrderDTO>> list(@RequestParam("openid") String openid,
                                          @RequestParam(value = "page", defaultValue = "0") Integer page,
                                          @RequestParam(value = "size", defaultValue = "10") Integer size) {
@@ -72,7 +73,7 @@ public class BuyOrderController {
     @GetMapping("/details")
     public ResultVO<OrderDTO> detail(@RequestParam("openid") String openid,
                                      @RequestParam("orderId") String orderId) {
-        OrderDTO orderDTO = buyerService.findOrderOne(openid,orderId);
+        OrderDTO orderDTO = buyerService.findOne(openid,orderId);
         return ResultVOUtil.success(orderDTO);
 
     }

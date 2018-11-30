@@ -19,23 +19,18 @@ public class BuyerServiceImpl implements BuyerService {
     @Autowired
     private OrderService orderService;
     @Override
-    public OrderDTO findOrderOne(String openId, String orderId) {
-        OrderDTO orderDTO = checkOrderOwner(openId,orderId);
-        if(orderDTO == null){
-            log.error("【取消订单】查不到该订单，orderid={}",orderId);
-            throw new GameException(ResultEnum.Order_NOT_EXIST);
-        }
-        return orderService.cancel(orderDTO);
-    }
-
-    @Override
-    public OrderDTO findOrderlist(String openId, String orderId) {
-        return null;
+    public OrderDTO findOne(String openId, String orderId) {
+        return checkOrderOwner(openId,orderId);
     }
 
     @Override
     public OrderDTO cancelOrderOne(String openId, String orderId) {
-        return checkOrderOwner(openId,orderId);
+        OrderDTO orderDTO = checkOrderOwner(openId,orderId);
+        if(orderDTO == null){
+            log.error("【查询订单】查不到该订单，orderid={}",orderId);
+            throw new GameException(ResultEnum.Order_NOT_EXIST);
+        }
+        return orderService.cancel(orderDTO);
     }
     private OrderDTO checkOrderOwner(String openId,String orderId){
         OrderDTO orderDTO = orderService.findOne(orderId);

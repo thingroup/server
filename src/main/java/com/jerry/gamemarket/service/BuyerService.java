@@ -7,7 +7,7 @@ import com.jerry.gamemarket.dto.OrderDTO;
  * Date 2018/10/8
  */
 public interface BuyerService {
-    OrderDTO findOrderOne(String openId,String orderId);
-    OrderDTO findOrderlist(String openId,String orderId);
+    OrderDTO findOne(String openId,String orderId);
+
     OrderDTO cancelOrderOne(String openId,String orderId);
 }

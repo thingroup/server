@@ -1,16 +1,14 @@
 package com.jerry.gamemarket.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * 微信请求
  * Created by Administrator on 2018/11/20 0018.
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/weixin")
 @Slf4j
