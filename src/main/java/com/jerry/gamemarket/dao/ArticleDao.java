@@ -4,6 +4,7 @@ import com.jerry.gamemarket.entity.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  * @author 叶俊晖
  * @date 2018/11/30 0030 20:32
  */
+@Repository
 public interface ArticleDao extends JpaRepository<Article,String>{
 
     List<Article> findByCanteenId(String canteenId);

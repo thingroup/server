@@ -6,18 +6,14 @@ import java.sql.Timestamp;
 
 /**
  * @author 叶俊晖
- * @date 2018/11/30 0030 20:32
+ * @date 2018/12/5 0005 14:49
  */
 @Data
-public class CommentDTO {
-    private Integer articleCommentId;
+public class CreateComment {
     private String userId;
     private String userName;
     private String commentText;
-    private Integer likes;
-    private Integer dislikes;
     private Integer articleId;
-    private Timestamp updateTime;
     private String lastUname;
     private String lastUid;
 }
