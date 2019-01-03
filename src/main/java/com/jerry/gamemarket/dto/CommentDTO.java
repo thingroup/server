@@ -20,4 +20,5 @@ public class CommentDTO {
     private Timestamp updateTime;
     private String lastUname;
     private String lastUid;
+    private Integer role;
 }

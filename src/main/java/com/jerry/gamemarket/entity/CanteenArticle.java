@@ -12,23 +12,26 @@ import java.sql.Timestamp;
 
 /**
  * @author 叶俊晖
- * @date 2018/12/5 0005 15:07
+ * @date 2018/12/31 0031 15:35
  */
 @Data
 @Entity
 @DynamicUpdate
 //设置懒加载为false
 @Proxy(lazy = false)
-public class LikeHistory {
+public class CanteenArticle {
     //   设置主键
     @Id
 //   自动更新生成策略
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer likeId;
-    private String userId;
-    private Integer type;
-    private Timestamp updateTime;
-    private String articleId;
-    private String articleCommentId;
+    private Integer caId;
     private String canteenId;
+    private String userId;
+    private String userName;
+    private Integer likes;
+    private Integer dislikes;
+    private Integer role;
+    private Timestamp updateTime;
+    private String img;
+    private String text;
 }

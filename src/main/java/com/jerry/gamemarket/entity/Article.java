@@ -36,4 +36,5 @@ public class Article {
     private Integer likes;
     private Integer dislikes;
     private String userName;
+    private Integer role;
 }

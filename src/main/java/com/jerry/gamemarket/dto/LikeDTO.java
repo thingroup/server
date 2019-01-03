@@ -14,4 +14,5 @@ public class LikeDTO {
     private Integer type;
     private String articleId;
     private String articleCommentId;
+    private String canteenId;
 }

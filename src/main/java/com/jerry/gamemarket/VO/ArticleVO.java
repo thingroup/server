@@ -1,7 +1,7 @@
 package com.jerry.gamemarket.VO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.jerry.gamemarket.dto.CommentDTO;
+
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -36,5 +36,7 @@ public class ArticleVO {
     @JsonProperty("productNames")
     private List<String> productNames;
     @JsonProperty("comments")
-    private List<CommentDTO> commentList;
+    private List<CommentVO> commentList;
+    @JsonProperty("status")
+    private Integer status=0;
 }

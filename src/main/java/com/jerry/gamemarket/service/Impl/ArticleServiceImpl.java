@@ -2,6 +2,7 @@ package com.jerry.gamemarket.service.Impl;
 
 
 import com.jerry.gamemarket.convertor.Comment2DTO;
+import com.jerry.gamemarket.convertor.Like2DTO;
 import com.jerry.gamemarket.dao.ArticleDao;
 import com.jerry.gamemarket.dao.CommentDao;
 import com.jerry.gamemarket.dao.LikeHistoryDao;
@@ -10,11 +11,16 @@ import com.jerry.gamemarket.dto.*;
 import com.jerry.gamemarket.entity.Article;
 import com.jerry.gamemarket.entity.ArticleComment;
 import com.jerry.gamemarket.entity.LikeHistory;
+import com.jerry.gamemarket.form.CreateArticle;
+import com.jerry.gamemarket.form.CreateComment;
 import com.jerry.gamemarket.service.ArticleService;
 import com.jerry.gamemarket.utils.ArticleSort.ArticleSort;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -57,8 +63,26 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void deleteArticle(Integer articleId) {
+    public ArticleDTO OneArticle(String uid, String canteenid) {
+        Article article=articleDao.findByUserIdAndCanteenId(uid, canteenid);
+        ArticleDTO articleDTO=new ArticleDTO();
+        BeanUtils.copyProperties(article,articleDTO);
+        return articleDTO;
+    }
+
+    @Override
+    public CommentDTO LatestComment(String uid) {
+        ArticleComment articleComment=commentDao.latestOne(uid);
+        CommentDTO commentDTO=new CommentDTO();
+        BeanUtils.copyProperties(articleComment,commentDTO);
+        return commentDTO;
+    }
+
+    @Override
+    public void deleteArticle(Integer articleId,String uid) {
         articleDao.deleteById(articleId+"");
+        commentDao.deleteByAId(articleId+"");
+        likeHistoryDao.deleteByA(articleId+"",uid);
     }
 
     @Override
@@ -84,6 +108,56 @@ public class ArticleServiceImpl implements ArticleService {
         articleComment.setLikes(0);
         articleComment.setDislikes(0);
         commentDao.save(articleComment);
+    }
+
+    @Override
+    public List<LikeDTO> LikeList(String uid,String canteenId) {
+        List<LikeHistory> histories=likeHistoryDao.findByUserIdAndCanteenId(uid,canteenId);
+        if(histories==null){
+            return null;
+        }
+        return new Like2DTO().convert(histories);
+    }
+
+    @Override
+    public LikeDTO findByUidAid(String uid, String aid) {
+        LikeHistory likeHistory=likeHistoryDao.findByUserIdAndArticleId(uid,aid);
+        if(likeHistory==null){
+            return null;
+        }
+        return new Like2DTO().convert(likeHistory);
+    }
+
+    @Override
+    public LikeDTO findByUidCid(String uid, String cid) {
+        LikeHistory likeHistory=likeHistoryDao.findByUserIdAndArticleCommentId(uid,cid);
+        if(likeHistory==null){
+            return null;
+        }
+        return new Like2DTO().convert(likeHistory);
+    }
+
+    @Override
+    public void changeLike(LikeDTO likeDTO) {
+        if(likeDTO.getArticleCommentId()==null){
+            likeHistoryDao.changeTypeByA(likeDTO.getArticleId(),likeDTO.getUserId());
+            if(likeDTO.getType()>0){
+                articleDao.addLike(likeDTO.getArticleId());
+                articleDao.reducedisLike(likeDTO.getArticleId());
+            }else{
+                articleDao.addDisLike(likeDTO.getArticleId());
+                articleDao.reduceLike(likeDTO.getArticleId());
+            }
+        }else{
+            likeHistoryDao.changeTypeByC(likeDTO.getArticleCommentId(),likeDTO.getUserId());
+            if(likeDTO.getType()>0){
+                commentDao.addLike(likeDTO.getArticleCommentId());
+                commentDao.reduceDisLike(likeDTO.getArticleCommentId());
+            }else{
+                commentDao.addDisLike(likeDTO.getArticleCommentId());
+                commentDao.reduceLike(likeDTO.getArticleCommentId());
+            }
+        }
     }
 
     @Override
@@ -132,6 +206,21 @@ public class ArticleServiceImpl implements ArticleService {
     public void reduceCHate(LikeDTO likeDTO) {
         likeHistoryDao.deleteByC(likeDTO.getArticleCommentId(),likeDTO.getUserId());
         commentDao.reduceDisLike(likeDTO.getArticleCommentId());
+    }
+
+    @Override
+    public Page<Article> findAll(Pageable request) {
+        return articleDao.findAll(request);
+    }
+
+    @Override
+    public List<ArticleComment> getCommentsByAid(Integer articleId) {
+        return commentDao.findByArticleId(articleId);
+    }
+
+    @Override
+    public List<ArticleComment> getCommentsByAidManager(Integer articleId) {
+        return commentDao.findByAidManager(articleId);
     }
 
     void createLikes(LikeDTO likeDTO){

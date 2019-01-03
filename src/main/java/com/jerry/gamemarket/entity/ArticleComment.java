@@ -34,4 +34,5 @@ public class ArticleComment {
     private Timestamp updateTime;
     private String lastUname;
     private String lastUid;
+    private Integer role;
 }
