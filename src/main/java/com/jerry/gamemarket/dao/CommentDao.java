@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public interface CommentDao extends JpaRepository<ArticleComment,String> {
 
-    @Query(value = "SELECT * FROM article_comment WHERE article_id=?1 and role!=-1 and role!=2 ORDER BY update_time DESC ",nativeQuery = true)
+    @Query(value = "SELECT * FROM article_comment WHERE article_id=?1 and role!=-1 ORDER BY update_time DESC ",nativeQuery = true)
     List<ArticleComment> findByArticleId(Integer articleId);
 
     @Query(value = "select * from article_comment WHERE user_id=?1 ORDER by update_time desc limit 1;",nativeQuery = true)

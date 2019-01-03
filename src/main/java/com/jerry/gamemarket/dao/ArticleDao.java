@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public interface ArticleDao extends JpaRepository<Article,String>{
 
-    @Query(value = "SELECT * FROM article WHERE canteen_id=?1 and role!=-1 AND role!=2",nativeQuery = true)
+    @Query(value = "SELECT * FROM article WHERE canteen_id=?1 and role!=-1",nativeQuery = true)
     List<Article> findByCanteenId(String canteenId);
 
     @Query(value = "Select * from article",nativeQuery = true)

@@ -14,4 +14,12 @@ public interface BanUserService {
     void ReturnARole(Integer articleId);
 
     void ReturnCRole(Integer commentId);
+
+    void updateCARole(Integer articleId);
+
+    void updateCCRole(Integer commentId);
+
+    void ReturnCARole(Integer articleId);
+
+    void ReturnCCRole(Integer commentId);
 }

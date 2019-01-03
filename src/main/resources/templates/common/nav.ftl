@@ -34,7 +34,7 @@
             <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-header">操作</li>
                 <li><a href="/seller/article/list">查看点评列表</a></li>
-                <li><a href="#">管理文章</a></li>
+                <li><a href="/seller/article/canteen/list">管理文章</a></li>
             </ul>
         </li>
         <li class="dropdown open">

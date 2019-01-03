@@ -50,7 +50,7 @@
                             <td onclick="getCommentList('${article.articleId}')">${article.likes}</td>
                             <td onclick="getCommentList('${article.articleId}')">${article.dislikes}</td>
                             <td onclick="getCommentList('${article.articleId}')">${article.updateTime}</td>
-                            <td><button onclick="showReplyForm('${article.articleId}','${article.userId}','${article.userName}','${article_index}','1')">回复</button>
+                            <td><button onclick="showReplyForm('${article.articleId}','${article.userId}','${article.userName}','${article_index}','1')">评论</button>
                                 <#if article.role==0>
                                     <input id="banbtn_${article.articleId}" type="submit" onclick="BanAllow('${article.userId}','${article.userName}','${article.articleId}','*')" value="禁止">
                                     <#else>
@@ -123,7 +123,7 @@
                                 </td>
                                 <td colspan="2"></td>
                                 <td>
-                                    <button onclick="sendReply()">回复</button>
+                                    <button onclick="sendReply()">发送</button>
                                 </td>
                             </tr>
                         </tbody>
