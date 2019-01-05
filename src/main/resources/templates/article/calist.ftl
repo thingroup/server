@@ -67,7 +67,7 @@
                 </div>
             <#--分页-->
                 <div class="col-md-12 column">
-                    <ul class="pagination " style="margin-left: 500px">
+                    <ul class="pagination " style="margin-left: 43%">
                     <#if currentPage==1>
                         <li class="disabled"><a href="#">上一页</a></li>
                     <#else>

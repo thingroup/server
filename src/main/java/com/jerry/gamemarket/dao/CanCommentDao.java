@@ -1,5 +1,6 @@
 package com.jerry.gamemarket.dao;
 
+import com.jerry.gamemarket.dto.CanCommentDTO;
 import com.jerry.gamemarket.entity.ArticleComment;
 import com.jerry.gamemarket.entity.CanteenComment;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -35,4 +36,35 @@ public interface CanCommentDao extends JpaRepository<CanteenComment,String>{
     @Transactional
     @Query(value = "UPDATE canteen_comment SET role=0 WHERE can_comment_id=?1",nativeQuery = true)
     void allowRole(Integer commentId);
+
+    @Query(value = "SELECT * FROM canteen_comment WHERE user_id=?1 ORDER BY update_time DESC limit 1",nativeQuery = true)
+    CanteenComment latestOne(String userId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM canteen_comment WHERE can_comment_id=?1 AND user_id=?2",nativeQuery = true)
+    void deleteByCidUid(Integer commentId, String uid);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE canteen_comment SET likes=likes+1 WHERE can_comment_id=?1",nativeQuery = true)
+    void addLike(String canCommentId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE canteen_comment SET dislikes=dislikes+1 WHERE can_comment_id=?1",nativeQuery = true)
+    void addHate(String canCommentId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE canteen_comment SET likes=likes-1 WHERE can_comment_id=?1",nativeQuery = true)
+    void reduceLike(String canCommentId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE canteen_comment SET dislikes=dislikes-1 WHERE can_comment_id=?1",nativeQuery = true)
+    void reduceHate(String canCommentId);
+
+    @Query(value = "SELECT * FROM canteen_comment WHERE ca_id=?1 AND role!=-1",nativeQuery = true)
+    List<CanteenComment> findByAidUser(Integer caid);
 }

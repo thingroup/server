@@ -69,7 +69,7 @@
                 </div>
                 <#--分页-->
                 <div class="col-md-12 column">
-                    <ul class="pagination " style="margin-left: 500px">
+                    <ul class="pagination " style="margin-left: 43%">
                     <#if currentPage==1>
                         <li class="disabled"><a href="#">上一页</a></li>
                     <#else>
@@ -104,8 +104,8 @@
                     <table>
                         <thead>
                             <tr>
-                                <th colspan="3">         点评回复       </th>
-                                <th><button onclick="hideReplyForm()">×</button></th>
+                                <th style="margin-left: 50%" colspan="3">点评回复</th>
+                                <th><button class="btn btn-default" onclick="hideReplyForm()">×</button></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -114,16 +114,17 @@
                             </tr>
                             <tr>
                                 <td colspan="4">
-                                    <input style="height: 30px;width: 170px" id="comment" name="commentText">
+                                    <div class="form-group">
+                                    <input class="form-control" id="comment" name="commentText">
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <button id="clearbtn" onclick="clearCommentText()">清空</button>
-                                </td>
-                                <td colspan="2"></td>
-                                <td>
-                                    <button onclick="sendReply()">发送</button>
+                                    <ul style="margin-left:140px" class="pagination ">
+                                        <li><a onclick="clearCommentText()">清空</a></li>
+                                        <li><a onclick="sendReply()">发送</a></li>
+                                    </ul>
                                 </td>
                             </tr>
                         </tbody>
@@ -177,6 +178,9 @@
 
     //展示回复框
     function showReplyForm(aid,uid,uname,index,type){
+        if(aid!=showedIndex){
+            getCommentList(aid);
+        }
         if(!Replybtn){
             checkId=index;
             setReplyForm(aid,uid,uname,type);

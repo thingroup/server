@@ -17,6 +17,5 @@ public class LikesForm {
     @NotNull(message = "点评id不为空")
     private String articleId;
     private String articleCommentId;
-    @NotNull(message = "餐厅id不为空")
     private String canteenId;
 }

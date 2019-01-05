@@ -11,7 +11,6 @@ import java.sql.Timestamp;
  */
 @Data
 public class CreateArticle {
-    @NotNull(message = "订单id不能为空")
     private String orderId;
     @NotNull(message = "餐厅ID不能为空")
     private String canteenId;
