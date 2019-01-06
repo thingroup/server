@@ -64,4 +64,7 @@ public interface CanteenArticleDao extends JpaRepository<CanteenArticle,String>{
 
     @Query(value = "SELECT * FROM canteen_article WHERE ca_id=?1 AND role!=-1",nativeQuery = true)
     CanteenArticle findByCaIdUser(Integer caid);
+
+    @Query(value = "SELECT * FROM canteen_article WHERE user_id=?1 AND role!=-1",nativeQuery = true)
+    List<CanteenArticle> findMyList(String uid);
 }

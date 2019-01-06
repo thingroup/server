@@ -122,7 +122,7 @@
                             <tr>
                                 <td>
                                     <ul style="margin-left:140px" class="pagination ">
-                                        <li><a onclick="clearCommentText()">清空</a></li>
+                                        <li><a id="clearbtn" onclick="clearCommentText()">清空</a></li>
                                         <li><a onclick="sendReply()">发送</a></li>
                                     </ul>
                                 </td>

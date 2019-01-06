@@ -6,7 +6,6 @@ import com.jerry.gamemarket.VO.ResultVO;
 import com.jerry.gamemarket.dto.CanArticleDTO;
 import com.jerry.gamemarket.dto.CanCommentDTO;
 import com.jerry.gamemarket.dto.CanLikeDTO;
-import com.jerry.gamemarket.dto.LikeDTO;
 import com.jerry.gamemarket.enums.ResultEnum;
 import com.jerry.gamemarket.exception.GameException;
 import com.jerry.gamemarket.form.CreateArticle;
@@ -19,7 +18,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -47,15 +45,16 @@ public class BuyerCanArticleController {
             throw new GameException(ResultEnum.PARAM_ERROR.getCode(),
                     bindingResult.getFieldError().getDefaultMessage());
         }
-        //测试用例uid=abc
-        article.setUserId("abc");
-        article.setUserName("abc");
+//        测试用例uid=testUser_1
+        article.setUserId("testUser_1");
+        article.setUserName("testUserName_1");
         CanArticleDTO articleDTO=articleService.OneArticle(article.getUserId(),article.getCanteenId());
         if(articleDTO!=null){
             log.error("【创建文章】 已经创建过，避免刷评,createCanArticle{}",article);
-            throw new GameException(ResultEnum.PARAM_ERROR.getCode(),
-                    bindingResult.getFieldError().getDefaultMessage());
+            return ResultVOUtil.error(1,"已创建文章");
         }
+        //更新评价
+        articleService.updateCanteenStar(article.getCanteenId(),article.getScore());
         articleService.createArticle(article);
         CanArticleDTO createResult=articleService.OneArticle(article.getUserId(),article.getCanteenId());
         Map<String,String> map=new HashMap<>();
@@ -66,9 +65,24 @@ public class BuyerCanArticleController {
     @GetMapping("/list")
     public ResultVO<List<CanArticleVO>> list(){
         List<CanArticleDTO> dtos=articleService.ArticleList();
-        List<CanArticleVO> articleVOS=new ArrayList<>();
         //测试用例uid=testUser_1
         String uid="testUser_1";
+        return ResultVOUtil.success(toVoList(dtos,uid));
+    }
+
+    @GetMapping("/mylist")
+    public ResultVO<List<CanArticleVO>> mylist(){
+        //测试用例uid=testUser_1
+        String uid="testUser_1";
+        if(uid==null){
+            return ResultVOUtil.error(1,"未登录");
+        }
+        List<CanArticleDTO> dtos=articleService.myArticleList(uid);
+        return ResultVOUtil.success(toVoList(dtos,uid));
+    }
+
+    private List<CanArticleVO> toVoList(List<CanArticleDTO> dtos, String uid){
+        List<CanArticleVO> articleVOS=new ArrayList<>();
         List<CanLikeDTO> likeDTOS=articleService.LikeList(uid);
         for(CanArticleDTO x:dtos){
             CanArticleVO vo=new CanArticleVO();
@@ -82,7 +96,7 @@ public class BuyerCanArticleController {
             }
             articleVOS.add(vo);
         }
-        return ResultVOUtil.success(articleVOS);
+        return articleVOS;
     }
 
     @PostMapping("/createComment")

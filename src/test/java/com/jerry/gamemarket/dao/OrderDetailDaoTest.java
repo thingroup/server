@@ -32,8 +32,8 @@ public class OrderDetailDaoTest {
     }
     @Test
     public void findByOrderId() throws Exception {
-        List<OrderDetail> orderDetailsList=orderDetailDao.findByOrderId("11111");
-        Assert.assertNotEquals(0,orderDetailsList.size());
+        List<OrderDetail> orderDetailsList=orderDetailDao.findByOrderId("123456");
+        orderDetailsList.forEach(System.out::println);
     }
 
 }

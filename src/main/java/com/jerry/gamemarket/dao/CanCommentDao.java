@@ -65,6 +65,6 @@ public interface CanCommentDao extends JpaRepository<CanteenComment,String>{
     @Query(value = "UPDATE canteen_comment SET dislikes=dislikes-1 WHERE can_comment_id=?1",nativeQuery = true)
     void reduceHate(String canCommentId);
 
-    @Query(value = "SELECT * FROM canteen_comment WHERE ca_id=?1 AND role!=-1",nativeQuery = true)
+    @Query(value = "SELECT * FROM canteen_comment WHERE ca_id=?1 AND role!=-1 ORDER BY update_time DESC ",nativeQuery = true)
     List<CanteenComment> findByAidUser(Integer caid);
 }

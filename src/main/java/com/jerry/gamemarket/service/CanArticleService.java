@@ -12,8 +12,6 @@ import com.jerry.gamemarket.form.CreateComment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -75,4 +73,8 @@ public interface CanArticleService {
     List<CanCommentDTO> UserGetCommentsByAidManager(Integer caid);
 
     CanLikeDTO findByUidCid(String userId, Integer canCommentId);
+
+    List<CanArticleDTO> myArticleList(String uid);
+
+    void updateCanteenStar(String canteenId,Float score);
 }

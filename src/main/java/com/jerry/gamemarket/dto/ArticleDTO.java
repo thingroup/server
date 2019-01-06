@@ -23,4 +23,5 @@ public class ArticleDTO {
     private String userName;
     private List<String> productNames;
     private List<CommentDTO> commentList;
+    private Integer role;
 }

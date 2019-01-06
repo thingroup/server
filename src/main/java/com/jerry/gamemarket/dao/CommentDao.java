@@ -34,7 +34,7 @@ public interface CommentDao extends JpaRepository<ArticleComment,String> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE article_comment SET likes=likes-1 WHERE article_comment_id=?1 AND user_id=?2",nativeQuery = true)
+    @Query(value = "UPDATE article_comment SET likes=likes-1 WHERE article_comment_id=?1",nativeQuery = true)
     void reduceLike(String commentId);
 
     @Modifying

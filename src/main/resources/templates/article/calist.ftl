@@ -48,7 +48,7 @@
                             <td onclick="getCommentList('${article.caId}')">${article.likes}</td>
                             <td onclick="getCommentList('${article.caId}')">${article.dislikes}</td>
                             <td onclick="getCommentList('${article.caId}')">${article.updateTime}</td>
-                            <td><button onclick="showReplyForm('${article.caId}','${article.userId}','${article.userName}','${article_index}','1')">评论</button>
+                            <td>
                                 <#if article.role==0>
                                     <input id="banbtn_${article.caId}" type="submit" onclick="BanAllow('${article.userId}','${article.userName}','${article.caId}','*')" value="禁止">
                                 <#else>

@@ -39,4 +39,6 @@ public class ArticleVO {
     private List<CommentVO> commentList;
     @JsonProperty("status")
     private Integer status=0;
+    @JsonProperty("role")
+    private Integer role=0;
 }

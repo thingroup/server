@@ -2,6 +2,7 @@ package com.jerry.gamemarket.dao;
 
 import com.jerry.gamemarket.entity.OrderDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 /*
@@ -10,5 +11,6 @@ import java.util.List;
 * 2018-10-4
 * */
 public interface OrderDetailDao extends JpaRepository<OrderDetail,String>{
+    @Query(value = "SELECT * FROM order_detail WHERE order_id=?1",nativeQuery = true)
     List<OrderDetail> findByOrderId(String orderId);
 }

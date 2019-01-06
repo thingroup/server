@@ -45,9 +45,9 @@ public class BuyerArticleController {
             throw new GameException(ResultEnum.PARAM_ERROR.getCode(),
                     bindingResult.getFieldError().getDefaultMessage());
         }
-        //测试用例uid=abc
-        article.setUserId("abc");
-        article.setUserName("abc");
+        //测试用例uid=testUser_1
+        article.setUserId("testUser_1");
+        article.setUserName("testUserName_1");
         ArticleDTO articleDTO=articleService.OneArticle(article.getUserId(),article.getCanteenId());
         if(articleDTO!=null){
             log.error("【创建点评】 已经创建过，避免刷评,createArticle{}",article);
@@ -69,8 +69,8 @@ public class BuyerArticleController {
         }
         List<ArticleDTO> dtos=articleService.ArticleList(canteenId);
         List<ArticleVO> articleVOS=new ArrayList<>();
-        //测试用例uid=abc
-        String uid="abc";
+        //测试用例uid=testUser_1
+        String uid="testUser_1";
         List<LikeDTO> likeDTOS=articleService.LikeList(uid,canteenId);
             for (ArticleDTO x:
                dtos  ) {
@@ -108,9 +108,9 @@ public class BuyerArticleController {
             throw new GameException(ResultEnum.PARAM_ERROR.getCode(),
                     bindingResult.getFieldError().getDefaultMessage());
         }
-        //测试用例uid=abc
-        comment.setUserId("abc");
-        comment.setUserName("abc");
+        //测试用例uid=testUser_1
+        String uid="testUser_1";
+        comment.setUserName("testUserName_1");
         articleService.createComment(comment);
         CommentDTO createResult=articleService.LatestComment(comment.getUserId());
         return ResultVOUtil.success(createResult);
@@ -119,8 +119,8 @@ public class BuyerArticleController {
     @DeleteMapping("/deleteArticle")
     public ResultVO deleteArticle(@RequestParam("articleId") Integer articleId,
                                   @RequestParam("userId") String userId){
-        //测试用例uid=abc
-        String uid="abc";
+        //测试用例uid=testUser_1
+        String uid="testUser_1";
         if(!userId.equals(uid)){
             log.error("【删除评论】用户不匹配, deleteArticle{}");
             return ResultVOUtil.error(404,"删除失败");
@@ -132,8 +132,8 @@ public class BuyerArticleController {
     @DeleteMapping("/deleteComment")
     public ResultVO deleteComment(@RequestParam("articleCommentId") Integer commentId,
                                   @RequestParam("userId") String userId){
-        //测试用例uid=abc
-        String uid="testUser_47";
+        //测试用例uid=testUser_1
+        String uid="testUser_1";
         if(!userId.equals(uid)){
             log.error("【删除评论】用户不匹配, deleteComment{}");
             return ResultVOUtil.error(404,"删除失败");
@@ -149,8 +149,8 @@ public class BuyerArticleController {
             throw new GameException(ResultEnum.PARAM_ERROR.getCode(),
                     bindingResult.getFieldError().getDefaultMessage());
         }
-        //测试用例uid=abc
-        String uid="abc";
+        //测试用例uid=testUser_1
+        String uid="testUser_1";
         if(uid==null){
             //登录拦截
         }

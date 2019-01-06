@@ -5,6 +5,7 @@ import com.jerry.gamemarket.convertor.Canlike2DTO;
 import com.jerry.gamemarket.dao.CanCommentDao;
 import com.jerry.gamemarket.dao.CanLikeHistoryDao;
 import com.jerry.gamemarket.dao.CanteenArticleDao;
+import com.jerry.gamemarket.dao.CanteenDao;
 import com.jerry.gamemarket.dto.CanArticleDTO;
 import com.jerry.gamemarket.convertor.CanComment2DTO;
 import com.jerry.gamemarket.dto.CanCommentDTO;
@@ -38,6 +39,9 @@ public class CanArticleServiceImpl implements CanArticleService {
 
     @Autowired
     CanLikeHistoryDao likeHistoryDao;
+
+    @Autowired
+    CanteenDao canteenDao;
 
     @Override
     public Page<CanteenArticle> findCanArticle(Pageable request) {
@@ -202,6 +206,17 @@ public class CanArticleServiceImpl implements CanArticleService {
     @Override
     public CanLikeDTO findByUidCid(String userId, Integer canCommentId) {
         return new Canlike2DTO().convert(likeHistoryDao.findByUserIdAndCommentId(userId,canCommentId+""));
+    }
+
+    @Override
+    public List<CanArticleDTO> myArticleList(String uid) {
+        return new CanArticle2DTO().convert(articleDao.findMyList(uid));
+    }
+
+    @Override
+    public void updateCanteenStar(String canteenId, Float score) {
+        Double star=canteenDao.getStar(canteenId);
+        canteenDao.updateStar((star*1000+score)/1001);
     }
 
     private void createLikes(CanLikeDTO likeDTO) {
