@@ -29,6 +29,7 @@ public class BanUserServiceImpl implements BanUserService{
     @Autowired
     CanCommentDao canCommentDao;
 
+
     @Override
     public void BanUser(String uid, String uname,String reason) {
         BanUser banUser=new BanUser();

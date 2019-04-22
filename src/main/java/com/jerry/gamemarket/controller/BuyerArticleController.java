@@ -62,15 +62,14 @@ public class BuyerArticleController {
     }
     //点评列表
     @GetMapping("/list")
-    public ResultVO<List<ArticleDTO>>list(@RequestParam("canteenId") String canteenId){
+    public ResultVO<List<ArticleDTO>>list(@RequestParam("canteenId") String canteenId,
+                                          @RequestParam("userId")String uid){
         if (StringUtils.isEmpty(canteenId)) {
             log.error("【查询点评列表】canteenId为空");
             throw new GameException(ResultEnum.PARAM_ERROR);
         }
         List<ArticleDTO> dtos=articleService.ArticleList(canteenId);
         List<ArticleVO> articleVOS=new ArrayList<>();
-        //测试用例uid=testUser_1
-        String uid="testUser_1";
         List<LikeDTO> likeDTOS=articleService.LikeList(uid,canteenId);
             for (ArticleDTO x:
                dtos  ) {
@@ -143,14 +142,13 @@ public class BuyerArticleController {
     }
 
     @PostMapping("/addlikes")
-    public ResultVO addLikes(@Valid LikesForm likesForm, BindingResult bindingResult){
+    public ResultVO addLikes(@Valid LikesForm likesForm, BindingResult bindingResult,
+                             @RequestParam("userId")String uid){
         if (bindingResult.hasErrors()) {
             log.error("【点赞】 参数不正确，addLikes{}", likesForm);
             throw new GameException(ResultEnum.PARAM_ERROR.getCode(),
                     bindingResult.getFieldError().getDefaultMessage());
         }
-        //测试用例uid=testUser_1
-        String uid="testUser_1";
         if(uid==null){
             //登录拦截
         }

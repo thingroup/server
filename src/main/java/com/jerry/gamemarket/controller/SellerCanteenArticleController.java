@@ -7,6 +7,7 @@ import com.jerry.gamemarket.entity.CanteenComment;
 import com.jerry.gamemarket.form.CreateComment;
 import com.jerry.gamemarket.service.BanUserService;
 import com.jerry.gamemarket.service.CanArticleService;
+import com.jerry.gamemarket.service.NormalUserService;
 import com.jerry.gamemarket.utils.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class SellerCanteenArticleController {
 
     @Autowired
     BanUserService banUserService;
+    @Autowired
+    NormalUserService userService;
+
 
     CanteenArticle subText(CanteenArticle article){
         if(article.getText().length()>10){
@@ -95,6 +99,7 @@ public class SellerCanteenArticleController {
         }else{
             banUserService.updateCCRole(Integer.parseInt(commentId));
         }
+        userService.updateRoleByUid(userId);
         return ResultVOUtil.success();
     }
 
@@ -103,6 +108,7 @@ public class SellerCanteenArticleController {
                               @RequestParam("articleId")String articleId,
                               @RequestParam("commentId")String commentId){
         banUserService.allowUser(userId);
+        userService.updateRoleByUid(userId);
         if(commentId.equals("*")){
             banUserService.ReturnCARole(Integer.parseInt(articleId));
         }else{

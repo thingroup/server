@@ -142,6 +142,8 @@ public class SellerProductController {
                 form.setProductId(KeyUtil.genUniquekey());
             }
             BeanUtils.copyProperties(form, productInfo);
+            productInfo.setCanteenId("1");
+            productInfo.setProductIcon("1");
             productService.save(productInfo);
         } catch (GameException e) {
             map.put("msg", e.getMessage());

@@ -1,0 +1,212 @@
+Starting ArticleServiceTest on godbb with PID 11472 (started by Administrator in C:\Users\Administrator\Desktop\server)
+No active profile set, falling back to default profiles: default
+Refreshing org.springframework.web.context.support.GenericWebApplicationContext@2f67b837: startup date [Tue Dec 25 14:14:00 SGT 2018]; root of context hierarchy
+Multiple Spring Data modules found, entering strict repository configuration mode!
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.ArticleDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.CanteenCategoryDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.CanteenDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.CommentDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.CouponCategoryDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.CouponDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.LikeHistoryDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.OrderDetailDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.OrderMasterDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.ProductCategoryDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.ProductDao.
+Multiple Spring Data modules found, entering strict repository configuration mode!
+JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$f12f9687] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+HikariPool-1 - Starting...
+HikariPool-1 - Driver does not support get/set network timeout for connections. (com.mysql.jdbc.JDBC4Connection.getNetworkTimeout()I)
+HikariPool-1 - Start completed.
+Building JPA container EntityManagerFactory for persistence unit 'default'
+HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+HHH000412: Hibernate Core {5.2.17.Final}
+HHH000206: hibernate.properties not found
+HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+Initialized JPA EntityManagerFactory for persistence unit 'default'
+HHH000397: Using ASTQueryTranslatorFactory
+spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+Mapped "{[/canteens/list],methods=[GET]}" onto public com.jerry.gamemarket.VO.ResultVO com.jerry.gamemarket.controller.BuyerCanteensController.list()
+Mapped "{[/canteens/canteenslist],methods=[GET]}" onto public com.jerry.gamemarket.VO.ResultVO com.jerry.gamemarket.controller.BuyerCanteensController.prolist()
+Mapped "{[/canteens/product],methods=[GET]}" onto public com.jerry.gamemarket.VO.ResultVO com.jerry.gamemarket.controller.BuyerCanteensController.prolist(java.lang.String)
+Mapped "{[/buyer/product/list],methods=[GET]}" onto public com.jerry.gamemarket.VO.ResultVO com.jerry.gamemarket.controller.BuyerProductController.list()
+Mapped "{[/buyer/order/create],methods=[POST]}" onto public com.jerry.gamemarket.VO.ResultVO<java.util.Map<java.lang.String, java.lang.String>> com.jerry.gamemarket.controller.BuyOrderController.create(com.jerry.gamemarket.form.OrderForm,org.springframework.validation.BindingResult)
+Mapped "{[/buyer/order/list],methods=[GET]}" onto public com.jerry.gamemarket.VO.ResultVO<java.util.List<com.jerry.gamemarket.dto.OrderDTO>> com.jerry.gamemarket.controller.BuyOrderController.list(java.lang.String,java.lang.Integer,java.lang.Integer)
+Mapped "{[/buyer/order/cancel],methods=[POST]}" onto public com.jerry.gamemarket.VO.ResultVO<com.jerry.gamemarket.dto.OrderDTO> com.jerry.gamemarket.controller.BuyOrderController.cancel(java.lang.String,java.lang.String)
+Mapped "{[/buyer/order/details],methods=[GET]}" onto public com.jerry.gamemarket.VO.ResultVO<com.jerry.gamemarket.dto.OrderDTO> com.jerry.gamemarket.controller.BuyOrderController.detail(java.lang.String,java.lang.String)
+Mapped "{[/pay/notify],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.PayController.notify(java.lang.String)
+Mapped "{[/pay/create],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.PayController.create(java.lang.String,java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/canteen/index],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerCanteenController.index(java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/canteen/list],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerCanteenController.list(java.lang.Integer,java.lang.Integer,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/canteen/save],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerCanteenController.save(com.jerry.gamemarket.form.CanteenForm,org.springframework.validation.BindingResult,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/canteen/goods],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerCanteenController.detail(java.lang.String,java.lang.Integer,java.lang.Integer,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/list],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.list(java.lang.Integer,java.lang.Integer,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/finish],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.finish(java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/cancel],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.cancel(java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/detail],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.detail(java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/findByCasebutton],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.findByCasebutton(java.lang.Integer,java.lang.Integer,com.jerry.gamemarket.form.SearchForm,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/orderStatistic],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.echartsTest2(java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/findByNameLike/{name}],methods=[GET]}" onto public java.util.List<com.jerry.gamemarket.entity.OrderMaster> com.jerry.gamemarket.controller.SellerOrderController.findByNameLike(java.lang.String)
+Mapped "{[/seller/order/findByCase],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.findByCase(java.lang.Integer,java.lang.Integer,com.jerry.gamemarket.form.SearchForm,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/findByCaseAjax],methods=[POST]}" onto public com.querydsl.core.QueryResults<com.jerry.gamemarket.entity.OrderMaster> com.jerry.gamemarket.controller.SellerOrderController.findByCase(com.jerry.gamemarket.dto.SearchOrderDTO)
+Mapped "{[/seller/order/canteenStatistic],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.echartsTest(java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/product/index],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerProductController.index(java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/product/list],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerProductController.list(java.lang.Integer,java.lang.Integer,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/product/save],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerProductController.save(com.jerry.gamemarket.form.ProductForm,org.springframework.validation.BindingResult,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/product/off_sale]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerProductController.offSale(java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/product/on_sale]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerProductController.onSale(java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/wechat/userInfo],methods=[GET]}" onto public java.lang.String com.jerry.gamemarket.controller.WechatController.userInfo(java.lang.String,java.lang.String)
+Mapped "{[/wechat/authorize],methods=[GET]}" onto public java.lang.String com.jerry.gamemarket.controller.WechatController.authorize(java.lang.String)
+Mapped "{[/weixin/auth],methods=[GET]}" onto public void com.jerry.gamemarket.controller.WeixinController.auth(java.lang.String)
+Mapped "{[/swagger-resources/configuration/security]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+Mapped "{[/swagger-resources]}" onto public org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+Mapped "{[/swagger-resources/configuration/ui]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@2f67b837: startup date [Tue Dec 25 14:14:00 SGT 2018]; root of context hierarchy
+Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+no modules loaded
+loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+loaded plugin [org.elasticsearch.join.ParentJoinPlugin]
+loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+Adding transport node : 127.0.0.1:9300
+ClassTemplateLoader for Spring macros added to FreeMarker configuration
+Starting beans in phase 2147483647
+Context refreshed
+Found 1 custom documentation plugin(s)
+Scanning for api listing references
+Generating unique operation named: listUsingGET_1
+Generating unique operation named: prolistUsingGET_1
+Generating unique operation named: listUsingGET_2
+Generating unique operation named: detailUsingGET_1
+Generating unique operation named: listUsingGET_3
+Generating unique operation named: detailUsingGET_2
+Generating unique operation named: findByCaseUsingPOST_1
+Generating unique operation named: listUsingGET_4
+Generating unique operation named: indexUsingGET_1
+Generating unique operation named: listUsingGET_5
+Generating unique operation named: saveUsingPOST_1
+Started ArticleServiceTest in 15.56 seconds (JVM running for 17.467)
+Closing org.springframework.web.context.support.GenericWebApplicationContext@2f67b837: startup date [Tue Dec 25 14:14:00 SGT 2018]; root of context hierarchy
+Stopping beans in phase 2147483647
+Closing JPA EntityManagerFactory for persistence unit 'default'
+HikariPool-1 - Shutdown initiated...
+HikariPool-1 - Shutdown completed.
+Starting ArticleServiceTest on godbb with PID 13860 (started by Administrator in C:\Users\Administrator\Desktop\server)
+No active profile set, falling back to default profiles: default
+Refreshing org.springframework.web.context.support.GenericWebApplicationContext@1869fbd2: startup date [Tue Dec 25 16:04:43 SGT 2018]; root of context hierarchy
+Multiple Spring Data modules found, entering strict repository configuration mode!
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.ArticleDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.CanteenCategoryDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.CanteenDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.CommentDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.CouponCategoryDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.CouponDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.LikeHistoryDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.OrderDetailDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.OrderMasterDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.ProductCategoryDao.
+Spring Data Elasticsearch - Could not safely identify store assignment for repository candidate interface com.jerry.gamemarket.dao.ProductDao.
+Multiple Spring Data modules found, entering strict repository configuration mode!
+JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$a8079754] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+HikariPool-1 - Starting...
+HikariPool-1 - Driver does not support get/set network timeout for connections. (com.mysql.jdbc.JDBC4Connection.getNetworkTimeout()I)
+HikariPool-1 - Start completed.
+Building JPA container EntityManagerFactory for persistence unit 'default'
+HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+HHH000412: Hibernate Core {5.2.17.Final}
+HHH000206: hibernate.properties not found
+HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+Initialized JPA EntityManagerFactory for persistence unit 'default'
+HHH000397: Using ASTQueryTranslatorFactory
+spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+Mapped "{[/buyer/article/create],methods=[POST]}" onto public com.jerry.gamemarket.VO.ResultVO<java.util.Map<java.lang.String, java.lang.String>> com.jerry.gamemarket.controller.BuyerArticleController.create(com.jerry.gamemarket.form.CreateArticle,org.springframework.validation.BindingResult)
+Mapped "{[/buyer/article/list],methods=[GET]}" onto public com.jerry.gamemarket.VO.ResultVO<java.util.List<com.jerry.gamemarket.dto.ArticleDTO>> com.jerry.gamemarket.controller.BuyerArticleController.list(java.lang.String)
+Mapped "{[/canteens/list],methods=[GET]}" onto public com.jerry.gamemarket.VO.ResultVO com.jerry.gamemarket.controller.BuyerCanteensController.list()
+Mapped "{[/canteens/canteenslist],methods=[GET]}" onto public com.jerry.gamemarket.VO.ResultVO com.jerry.gamemarket.controller.BuyerCanteensController.prolist()
+Mapped "{[/canteens/product],methods=[GET]}" onto public com.jerry.gamemarket.VO.ResultVO com.jerry.gamemarket.controller.BuyerCanteensController.prolist(java.lang.String)
+Mapped "{[/buyer/product/list],methods=[GET]}" onto public com.jerry.gamemarket.VO.ResultVO com.jerry.gamemarket.controller.BuyerProductController.list()
+Mapped "{[/buyer/order/create],methods=[POST]}" onto public com.jerry.gamemarket.VO.ResultVO<java.util.Map<java.lang.String, java.lang.String>> com.jerry.gamemarket.controller.BuyOrderController.create(com.jerry.gamemarket.form.OrderForm,org.springframework.validation.BindingResult)
+Mapped "{[/buyer/order/list],methods=[GET]}" onto public com.jerry.gamemarket.VO.ResultVO<java.util.List<com.jerry.gamemarket.dto.OrderDTO>> com.jerry.gamemarket.controller.BuyOrderController.list(java.lang.String,java.lang.Integer,java.lang.Integer)
+Mapped "{[/buyer/order/cancel],methods=[POST]}" onto public com.jerry.gamemarket.VO.ResultVO<com.jerry.gamemarket.dto.OrderDTO> com.jerry.gamemarket.controller.BuyOrderController.cancel(java.lang.String,java.lang.String)
+Mapped "{[/buyer/order/details],methods=[GET]}" onto public com.jerry.gamemarket.VO.ResultVO<com.jerry.gamemarket.dto.OrderDTO> com.jerry.gamemarket.controller.BuyOrderController.detail(java.lang.String,java.lang.String)
+Mapped "{[/pay/notify],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.PayController.notify(java.lang.String)
+Mapped "{[/pay/create],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.PayController.create(java.lang.String,java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/canteen/index],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerCanteenController.index(java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/canteen/list],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerCanteenController.list(java.lang.Integer,java.lang.Integer,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/canteen/save],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerCanteenController.save(com.jerry.gamemarket.form.CanteenForm,org.springframework.validation.BindingResult,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/canteen/goods],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerCanteenController.detail(java.lang.String,java.lang.Integer,java.lang.Integer,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/list],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.list(java.lang.Integer,java.lang.Integer,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/findByCase],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.findByCase(java.lang.Integer,java.lang.Integer,com.jerry.gamemarket.form.SearchForm,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/findByCaseAjax],methods=[POST]}" onto public com.querydsl.core.QueryResults<com.jerry.gamemarket.entity.OrderMaster> com.jerry.gamemarket.controller.SellerOrderController.findByCase(com.jerry.gamemarket.dto.SearchOrderDTO)
+Mapped "{[/seller/order/finish],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.finish(java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/findByNameLike/{name}],methods=[GET]}" onto public java.util.List<com.jerry.gamemarket.entity.OrderMaster> com.jerry.gamemarket.controller.SellerOrderController.findByNameLike(java.lang.String)
+Mapped "{[/seller/order/cancel],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.cancel(java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/detail],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.detail(java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/orderStatistic],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.echartsTest2(java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/canteenStatistic],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.echartsTest(java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/order/findByCasebutton],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerOrderController.findByCasebutton(java.lang.Integer,java.lang.Integer,com.jerry.gamemarket.form.SearchForm,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/product/index],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerProductController.index(java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/product/list],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerProductController.list(java.lang.Integer,java.lang.Integer,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/product/save],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerProductController.save(com.jerry.gamemarket.form.ProductForm,org.springframework.validation.BindingResult,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/product/on_sale]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerProductController.onSale(java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/seller/product/off_sale]}" onto public org.springframework.web.servlet.ModelAndView com.jerry.gamemarket.controller.SellerProductController.offSale(java.lang.String,java.util.Map<java.lang.String, java.lang.Object>)
+Mapped "{[/wechat/userInfo],methods=[GET]}" onto public java.lang.String com.jerry.gamemarket.controller.WechatController.userInfo(java.lang.String,java.lang.String)
+Mapped "{[/wechat/authorize],methods=[GET]}" onto public java.lang.String com.jerry.gamemarket.controller.WechatController.authorize(java.lang.String)
+Mapped "{[/weixin/auth],methods=[GET]}" onto public void com.jerry.gamemarket.controller.WeixinController.auth(java.lang.String)
+Mapped "{[/swagger-resources/configuration/ui]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+Mapped "{[/swagger-resources]}" onto public org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+Mapped "{[/swagger-resources/configuration/security]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@1869fbd2: startup date [Tue Dec 25 16:04:43 SGT 2018]; root of context hierarchy
+Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+no modules loaded
+loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+loaded plugin [org.elasticsearch.join.ParentJoinPlugin]
+loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+Adding transport node : 127.0.0.1:9300
+ClassTemplateLoader for Spring macros added to FreeMarker configuration
+Starting beans in phase 2147483647
+Context refreshed
+Found 1 custom documentation plugin(s)
+Scanning for api listing references
+Generating unique operation named: createUsingPOST_1
+Generating unique operation named: listUsingGET_1
+Generating unique operation named: listUsingGET_2
+Generating unique operation named: prolistUsingGET_1
+Generating unique operation named: listUsingGET_3
+Generating unique operation named: detailUsingGET_1
+Generating unique operation named: listUsingGET_4
+Generating unique operation named: detailUsingGET_2
+Generating unique operation named: findByCaseUsingPOST_1
+Generating unique operation named: listUsingGET_5
+Generating unique operation named: indexUsingGET_1
+Generating unique operation named: listUsingGET_6
+Generating unique operation named: saveUsingPOST_1
+Started ArticleServiceTest in 13.84 seconds (JVM running for 15.022)
+Closing org.springframework.web.context.support.GenericWebApplicationContext@1869fbd2: startup date [Tue Dec 25 16:04:43 SGT 2018]; root of context hierarchy
+Stopping beans in phase 2147483647
+Closing JPA EntityManagerFactory for persistence unit 'default'
+HikariPool-1 - Shutdown initiated...
+HikariPool-1 - Shutdown completed.

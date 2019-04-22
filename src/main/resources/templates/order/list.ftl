@@ -81,7 +81,6 @@
                             <th>订单ID</th>
                             <th>姓名</th>
                             <th>手机号 </th>
-                            <th>地址</th>
                             <th>金额</th>
                             <th>店铺ID</th>
                             <th>订单状态 </th>
@@ -96,7 +95,6 @@
                             <td>${orderDTO.orderId}</td>
                             <td>${orderDTO.buyerName}</td>
                             <td>${orderDTO.buyerPhone}</td>
-                            <td>${orderDTO.buyerAddress}</td>
                             <td>${orderDTO.orderAmount}</td>
                             <td>${orderDTO.canteenId}</td>
                             <td>

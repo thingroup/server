@@ -24,11 +24,11 @@ public class CanCommentDAOTest {
     @Test
     public void createData(){
         String s1="fdaefsefgsdgdf复合丝辐射读后感佛文化节佛额外IQ分就偶是地方去放弃分担我覅佛Ian佛我阿尔及发票上只分配hgerargsdfgvsghrweifhsdovnwfwofsaqnfFSDHFOSGNSDfjsdofNIOPJFSO";
-        for(int i=1;i<=100;i++){
+        for(int i=1;i<=50;i++){
             CanteenComment articleComment=new CanteenComment();
             articleComment.setCaId(new Random().nextInt(101)+1);
-            articleComment.setUserId("testUser_"+i);
-            articleComment.setUserName("testUserName_"+i);
+            articleComment.setUserId("1");
+            articleComment.setUserName("龟bb");
             articleComment.setUpdateTime(new Timestamp(System.currentTimeMillis()));
             articleComment.setDislikes(0);
             articleComment.setLikes(0);

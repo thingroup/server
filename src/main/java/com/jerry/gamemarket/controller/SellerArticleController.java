@@ -8,9 +8,11 @@ import com.jerry.gamemarket.dto.LikeDTO;
 import com.jerry.gamemarket.entity.Article;
 import com.jerry.gamemarket.entity.ArticleComment;
 import com.jerry.gamemarket.entity.CanteenInfo;
+import com.jerry.gamemarket.entity.NormalUser;
 import com.jerry.gamemarket.form.CreateComment;
 import com.jerry.gamemarket.service.ArticleService;
 import com.jerry.gamemarket.service.BanUserService;
+import com.jerry.gamemarket.service.NormalUserService;
 import com.jerry.gamemarket.utils.ResultVOUtil;
 import com.lly835.bestpay.rest.type.Get;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +45,8 @@ public class SellerArticleController {
     ArticleService articleService;
     @Autowired
     BanUserService banUserService;
+    @Autowired
+    NormalUserService userService;
 
     @GetMapping("/list")
     public ModelAndView list(Map<String, Object> map,
@@ -97,6 +101,7 @@ public class SellerArticleController {
         }else{
             banUserService.updateCRole(Integer.parseInt(commentId));
         }
+        userService.updateRoleByUid(userId);
         return ResultVOUtil.success();
     }
 
@@ -105,6 +110,7 @@ public class SellerArticleController {
                             @RequestParam("articleId")String articleId,
                             @RequestParam("commentId")String commentId){
         banUserService.allowUser(userId);
+        userService.updateRoleByUid(userId);
         if(commentId.equals("*")){
             banUserService.ReturnARole(Integer.parseInt(articleId));
         }else{

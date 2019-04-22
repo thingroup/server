@@ -134,7 +134,7 @@ public class SellerOrderController {
 
             return new ModelAndView("order/result" , map);
 }
-        @GetMapping("/findByCasebutton")
+        @PostMapping("/findByCasebutton")
             public ModelAndView findByCasebutton(@RequestParam(required = false , value = "page" , defaultValue = "0") Integer page,
                                    @RequestParam(required = false , value = "size" , defaultValue = "10") Integer size,
                                    @Valid SearchForm searchFormb,

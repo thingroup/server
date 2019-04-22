@@ -20,6 +20,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,9 +47,9 @@ public class BuyerCanArticleController {
             throw new GameException(ResultEnum.PARAM_ERROR.getCode(),
                     bindingResult.getFieldError().getDefaultMessage());
         }
-//        测试用例uid=testUser_1
-        article.setUserId("testUser_1");
-        article.setUserName("testUserName_1");
+////        测试用例uid=testUser_1
+//        article.setUserId("testUser_1");
+//        article.setUserName("testUserName_1");
         CanArticleDTO articleDTO=articleService.OneArticle(article.getUserId(),article.getCanteenId());
         if(articleDTO!=null){
             log.error("【创建文章】 已经创建过，避免刷评,createCanArticle{}",article);
@@ -71,14 +73,17 @@ public class BuyerCanArticleController {
     }
 
     @GetMapping("/mylist")
-    public ResultVO<List<CanArticleVO>> mylist(){
-        //测试用例uid=testUser_1
-        String uid="testUser_1";
-        if(uid==null){
+    public ResultVO<List<CanArticleVO>> mylist(@RequestParam("userId")String userId,@RequestParam("userName")String userName){
+        try {
+            userName= URLDecoder.decode(userName,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        if(userId==null){
             return ResultVOUtil.error(1,"未登录");
         }
-        List<CanArticleDTO> dtos=articleService.myArticleList(uid);
-        return ResultVOUtil.success(toVoList(dtos,uid));
+        List<CanArticleDTO> dtos=articleService.myArticleList(userId);
+        return ResultVOUtil.success(toVoList(dtos,userId));
     }
 
     private List<CanArticleVO> toVoList(List<CanArticleDTO> dtos, String uid){
@@ -106,9 +111,11 @@ public class BuyerCanArticleController {
             throw new GameException(ResultEnum.PARAM_ERROR.getCode(),
                     bindingResult.getFieldError().getDefaultMessage());
         }
-        //测试用例uid=abc
-        comment.setUserId("testUser_1");
-        comment.setUserName("testUserName_1");
+        try {
+            comment.setUserName(URLDecoder.decode(comment.getUserName(),"utf-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         articleService.createComment(comment);
         CanCommentDTO createResult=articleService.LatestComment(comment.getUserId());
         return ResultVOUtil.success(createResult);
@@ -116,24 +123,22 @@ public class BuyerCanArticleController {
 
     @DeleteMapping("/deleteArticle")
     public ResultVO deleteArticle(@RequestParam("caId") Integer articleId,
-                                  @RequestParam("userId") String userId){
-        //测试用例uid=abc
-        String uid="abc";
-        if(!userId.equals(uid)){
+                                  @RequestParam("userId") String userId,
+                                  @RequestParam("author") String author){
+        if(!userId.equals(author)){
             log.error("【删除文章】用户不匹配, deleteArticle{}");
             return ResultVOUtil.error(404,"删除失败");
         }
-        articleService.deleteArticle(articleId,uid);
+        articleService.deleteArticle(articleId,userId);
         return ResultVOUtil.success();
     }
 
     @DeleteMapping("/deleteComment")
     public ResultVO deleteComment(@RequestParam("canCommentId") Integer commentId,
-                                  @RequestParam("userId") String userId){
-        //测试用例uid=abc
-        String uid="abc";
-        if(!userId.equals(uid)){
-            log.error("【删除评论】用户不匹配, deleteComment{}");
+                                  @RequestParam("userId") String uid,
+                                  @RequestParam("author") String author){
+        if(!uid.equals(author)){
+            log.error("【删除文章】用户不匹配, deleteArticle{}");
             return ResultVOUtil.error(404,"删除失败");
         }
         articleService.deleteCommentByUid(commentId,uid);
@@ -141,14 +146,13 @@ public class BuyerCanArticleController {
     }
 
     @PostMapping("/addlikes")
-    public ResultVO addLikes(@Valid LikesForm likesForm, BindingResult bindingResult){
+    public ResultVO addLikes(@Valid LikesForm likesForm, BindingResult bindingResult,
+                             @RequestParam("userId")String uid){
         if (bindingResult.hasErrors()) {
             log.error("【文章点赞】 参数不正确，addLikes{}", likesForm);
             throw new GameException(ResultEnum.PARAM_ERROR.getCode(),
                     bindingResult.getFieldError().getDefaultMessage());
         }
-        //测试用例uid=abc
-        String uid="testUser_1";
         if(uid==null){
             //登录拦截
         }
@@ -160,7 +164,6 @@ public class BuyerCanArticleController {
         likeDTO.setCaId(likesForm.getArticleId());
         likeDTO.setUserId(uid);
         //未有点赞、踩记录
-        System.out.println("test+ status="+status+"_type="+type);
         if(status==0){
             //创建记录
             if(type>0){

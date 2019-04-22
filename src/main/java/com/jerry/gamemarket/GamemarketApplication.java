@@ -1,6 +1,7 @@
 package com.jerry.gamemarket;
 
 import com.jerry.gamemarket.dto.SearchOrderDTO;
+import com.jerry.gamemarket.utils.PrintTable.PrintTable;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

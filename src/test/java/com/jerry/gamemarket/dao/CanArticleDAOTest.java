@@ -55,11 +55,11 @@ public class CanArticleDAOTest {
         x[1]="高师傅家常菜";
         x[2]="辣焖骨头饭";
         x[3]="红篷子烧烤";
-        for(int i=1;i<=50;i++){
+        for(int i=1;i<=5;i++){
             CanteenArticle article=new CanteenArticle();
             article.setScore(new Random().nextFloat()*5);
-            article.setUserId("testUser_"+i);
-            article.setUserName("testUserName_"+i);
+            article.setUserId("1");
+            article.setUserName("龟bb");
             Integer cid=new Random().nextInt(4);
             article.setCanteenId((cid+1)+"");
             int a=new Random().nextInt(s1.length());
